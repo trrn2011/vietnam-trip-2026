@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#0E7C86">
 <title>Vietnam 2026 香港経由</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,257 +13,331 @@
 :root{
   --bg:#F3F6F8; --paper:#FFFFFF; --ink:#14213D; --ink-2:#4A5568; --muted:#7C8798;
   --line:#D7DEE6; --accent:#0E7C86; --accent-soft:#D9EEF0; --gold:#B8862B; --gold-soft:#F5EBD3;
-  --sea:#E4EEF3; --sea-line:#C3D4DE; --done:#2F855A; --done-soft:#DDF1E4;
+  --sea:#E4EEF3; --done:#2F855A;
   --shadow:0 1px 2px rgba(20,33,61,.06),0 8px 24px -12px rgba(20,33,61,.18);
+  --nav-h:52px;
 }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
+  :root{
     --bg:#0E141C; --paper:#151D27; --ink:#E7ECF1; --ink-2:#B4BFCB; --muted:#7F8B99;
     --line:#26303C; --accent:#4FB7C0; --accent-soft:#12303A; --gold:#D8A94A; --gold-soft:#2E2614;
-    --sea:#111A24; --sea-line:#233040; --done:#6CCB8F; --done-soft:#14301F;
+    --sea:#111A24; --done:#6CCB8F;
     --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
   }
 }
-:root[data-theme="dark"]{
-  --bg:#0E141C; --paper:#151D27; --ink:#E7ECF1; --ink-2:#B4BFCB; --muted:#7F8B99;
-  --line:#26303C; --accent:#4FB7C0; --accent-soft:#12303A; --gold:#D8A94A; --gold-soft:#2E2614;
-  --sea:#111A24; --sea-line:#233040; --done:#6CCB8F; --done-soft:#14301F;
-  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
-}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + env(safe-area-inset-top,0px) + 8px)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;font-size:15.5px;line-height:1.7;-webkit-font-smoothing:antialiased}
 a{color:var(--accent)}
-.wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:28px 64px}
-h1,h2,h3{font-family:"Zen Old Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;font-weight:700;text-wrap:balance;margin:0;line-height:1.3}
+h1,h2,h3,h4{font-family:"Zen Old Mincho","Hiragino Mincho ProN","Noto Serif JP",serif;font-weight:700;text-wrap:balance;margin:0;line-height:1.3}
 .mono{font-family:"DM Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
-.eyebrow{font-family:"DM Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.eyebrow{font-family:"DM Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+
+/* sticky city nav */
+nav.cities{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+nav.cities ul{list-style:none;margin:0;padding:0 8px;display:flex;height:var(--nav-h);overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+nav.cities ul::-webkit-scrollbar{display:none}
+nav.cities li{flex:1 0 auto}
+nav.cities a{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:0 14px;text-decoration:none;color:var(--ink-2);font-weight:500;font-size:14px;border-bottom:2px solid transparent;white-space:nowrap}
+nav.cities a small{font-family:"DM Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:.06em}
+nav.cities a:hover,nav.cities a:focus-visible{color:var(--accent);outline:none}
+
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:20px 56px}
 
 /* header */
-header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 32px;padding-bottom:20px;border-bottom:1px solid var(--line)}
-header.top h1{font-size:clamp(30px,5vw,44px);letter-spacing:.01em}
-header.top h1 small{display:block;font-family:"Zen Kaku Gothic New",sans-serif;font-weight:500;font-size:14px;color:var(--ink-2);letter-spacing:.06em;margin-top:6px}
-.facts{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:13.5px;color:var(--ink-2)}
+header.top{padding:8px 0 20px}
+header.top h1{font-size:clamp(30px,8vw,40px);letter-spacing:.01em}
+header.top h1 small{display:block;font-family:"Zen Kaku Gothic New",sans-serif;font-weight:500;font-size:13.5px;color:var(--ink-2);letter-spacing:.06em;margin-top:6px}
+.facts{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:13.5px;color:var(--ink-2);margin-top:10px}
 .facts b{color:var(--ink);font-weight:700}
+.route{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:12px;font-size:13px}
+.route span{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 11px;font-weight:500}
+.route i{color:var(--muted);font-style:normal}
 
-/* places */
-.places{margin-top:32px}
-.place-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-.place{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
-.place iframe{display:block;width:100%;aspect-ratio:4/3;border:0;background:var(--sea)}
-.place figcaption{padding:12px 16px 14px;display:flex;flex-direction:column;gap:3px}
-.place figcaption .eyebrow{color:var(--muted)}
-.place h3{font-size:19px}
-.place h3 .pn{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:500;font-size:14px;color:var(--ink-2);margin-left:6px}
-.place .addr{font-size:12.5px;color:var(--ink-2)}
-.place a{font-size:13px;text-decoration:none;font-weight:500;margin-top:4px}
-.place a:hover{text-decoration:underline}
-.dotk{width:10px;height:10px;border-radius:50%;background:var(--accent);display:inline-block}
+/* city section */
+section.city{margin-top:28px;padding-top:8px}
+.city-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-bottom:12px;border-bottom:2px solid var(--ink);margin-bottom:16px}
+.city-head h2{font-size:30px}
+.city-head h2 .en{font-family:"DM Mono",monospace;font-size:12px;font-weight:400;color:var(--muted);letter-spacing:.1em;margin-left:10px}
+.city-head .when{font-size:13.5px;color:var(--ink-2);font-weight:500}
+.city-head .when b{color:var(--gold)}
 
-/* main grid */
-.main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;margin-top:44px;align-items:start}
-section h2{font-size:24px;margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--line)}
-section h2 .eyebrow{display:block;margin-bottom:6px}
+/* map figure */
+.map{margin:0 0 14px;background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.map iframe{display:block;width:100%;aspect-ratio:4/3;border:0;background:var(--sea)}
+.map.small iframe{aspect-ratio:16/10}
+.map figcaption{padding:10px 14px 12px;display:flex;flex-direction:column;gap:2px}
+.map figcaption .lbl{font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;font-family:"DM Mono",monospace}
+.map figcaption .name{font-weight:700;font-size:16px}
+.map figcaption .addr{font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.map figcaption a{font-size:13.5px;text-decoration:none;font-weight:500;margin-top:6px;display:inline-flex;align-items:center;gap:4px;min-height:32px}
 
-/* timeline */
-.days{display:flex;flex-direction:column;gap:0;position:relative}
-.day{display:grid;grid-template-columns:76px minmax(0,1fr);gap:0 18px;position:relative;padding-bottom:26px}
-.day::before{content:"";position:absolute;left:37px;top:44px;bottom:0;border-left:2px solid var(--line)}
-.day:last-child::before{display:none}
-.date{position:sticky;top:12px;align-self:start;text-align:center;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:8px 4px;box-shadow:var(--shadow)}
-.date .d{font-family:"Zen Old Mincho",serif;font-size:24px;font-weight:700;line-height:1;color:var(--ink)}
-.date .w{font-size:11px;color:var(--muted);letter-spacing:.1em;margin-top:4px}
-.date.night{border-color:var(--gold);background:var(--gold-soft)}
-.day-body h3{font-size:18px;margin:8px 0 10px}
-.day-body h3 .city{color:var(--accent)}
-.ev{display:grid;grid-template-columns:58px minmax(0,1fr);gap:0 12px;padding:7px 0;border-top:1px dashed var(--line);font-size:14.5px}
-.ev:first-of-type{border-top:0}
-.ev .t{font-family:"DM Mono",monospace;font-size:13px;color:var(--muted);padding-top:2px;font-variant-numeric:tabular-nums}
-.ev .t:empty::before{content:"—"}
+/* sub blocks */
+.blk{margin-top:20px}
+.blk h3{font-size:17px;display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.blk h3::after{content:"";flex:1;border-top:1px solid var(--line)}
+.blk h3 .eyebrow{font-size:10.5px}
+
+/* schedule */
+.sched{display:flex;flex-direction:column;gap:10px}
+.dayc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px 6px;box-shadow:var(--shadow)}
+.dayc .dh{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+.dayc .dh .d{font-family:"Zen Old Mincho",serif;font-size:22px;font-weight:700;line-height:1}
+.dayc .dh .w{font-family:"DM Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.1em}
+.dayc .dh .ttl{font-size:14px;color:var(--ink-2);font-weight:500;margin-left:auto;text-align:right}
+.ev{display:grid;grid-template-columns:52px minmax(0,1fr);gap:0 10px;padding:7px 0;border-top:1px dashed var(--line);font-size:14.5px}
+.ev .t{font-family:"DM Mono",monospace;font-size:12.5px;color:var(--muted);padding-top:3px;font-variant-numeric:tabular-nums}
 .ev.flight{background:var(--accent-soft);border-radius:8px;padding:8px 10px;margin:4px 0;border-top:0}
 .ev.flight .t{color:var(--accent)}
 .ev.flight b{color:var(--accent)}
 .ev.pin b{color:var(--gold)}
-.stay{display:inline-flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;color:var(--ink-2);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 8px}
-.stay .dotk{background:var(--gold)}
-.stay a{text-decoration:none}
-.tbd{color:var(--gold);font-weight:500}
+.ev a{text-decoration:none;font-weight:500}
+.tbd{color:var(--gold);font-weight:700}
 
-/* aside */
-aside{display:flex;flex-direction:column;gap:28px;position:sticky;top:16px}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 18px;box-shadow:var(--shadow)}
-.card h2{font-size:17px;margin-bottom:12px;padding-bottom:8px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{text-align:left;font-weight:500;color:var(--muted);font-size:11.5px;letter-spacing:.06em;padding:0 0 6px;border-bottom:1px solid var(--line)}
-td{padding:7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+/* spots */
+.spots{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.spot{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 12px 10px 14px}
+.spot .n{font-weight:700;font-size:15px}
+.spot .n .tag{display:inline-block;font-size:10.5px;font-weight:500;letter-spacing:.06em;color:var(--gold);background:var(--gold-soft);border-radius:999px;padding:1px 8px;margin-left:8px;vertical-align:2px;font-family:"DM Mono",monospace}
+.spot .n .tag.fix{color:var(--accent);background:var(--accent-soft)}
+.spot .m{grid-column:1;font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.spot a{grid-column:2;grid-row:1/3;display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:10px;background:var(--accent-soft);color:var(--accent);text-decoration:none;font-size:12px;font-weight:700;padding:0 10px}
+
+/* info cards */
+.card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);margin-top:14px}
+.card h3{font-size:16px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;font-weight:500;color:var(--muted);font-size:11px;letter-spacing:.06em;padding:0 0 6px;border-bottom:1px solid var(--line)}
+td{padding:8px 0;border-bottom:1px solid var(--line);vertical-align:top}
 tr:last-child td{border-bottom:0}
 td.num,th.num{text-align:right;font-family:"DM Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
 tfoot td{font-weight:700;border-top:2px solid var(--ink);border-bottom:0}
-.hotel{display:flex;flex-direction:column;gap:2px;padding:10px 0;border-bottom:1px solid var(--line)}
-.hotel:last-child{border-bottom:0}
-.hotel .n{font-weight:700}
-.hotel .a{font-size:12.5px;color:var(--ink-2)}
-.hotel .m{font-size:12.5px;display:flex;gap:12px;flex-wrap:wrap}
-.hotel .m a{text-decoration:none}
-ul.check{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13.5px}
-ul.check li{display:flex;gap:9px;align-items:flex-start}
-ul.check li::before{content:"";flex:none;width:15px;height:15px;margin-top:5px;border-radius:4px;border:1.5px solid var(--muted)}
+ul.check{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:14px}
+ul.check li{display:flex;gap:10px;align-items:flex-start}
+ul.check li::before{content:"";flex:none;width:16px;height:16px;margin-top:5px;border-radius:4px;border:1.5px solid var(--muted)}
 ul.check li.on{color:var(--muted);text-decoration:line-through}
 ul.check li.on::before{background:var(--done);border-color:var(--done);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2l2.3 2.3 4.7-4.9' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");background-size:11px;background-position:center;background-repeat:no-repeat}
-.note{font-size:13px;color:var(--ink-2);margin:0;padding-left:18px}
-.note li{margin:3px 0}
-footer{margin-top:40px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+.note{font-size:13.5px;color:var(--ink-2);margin:0;padding-left:18px}
+.note li{margin:4px 0}
+footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;padding-bottom:env(safe-area-inset-bottom,0px)}
 
-@media (max-width:860px){
-  .main{grid-template-columns:1fr;gap:32px}
-  aside{position:static}
-  .place-grid{grid-template-columns:1fr}
-}
-@media (max-width:480px){
-  .day{grid-template-columns:60px minmax(0,1fr);gap:0 12px}
-  .day::before{left:29px}
-  .date .d{font-size:20px}
-  .ev{grid-template-columns:50px minmax(0,1fr)}
+@media (min-width:720px){
+  .maps2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .maps2 .map{margin-bottom:0}
 }
 </style>
 </head>
 <body>
 
+<nav class="cities" aria-label="拠点">
+  <ul>
+    <li><a href="#hk">香港<small>9/19–20</small></a></li>
+    <li><a href="#dn">ダナン<small>9/20–22</small></a></li>
+    <li><a href="#hcm">ホーチミン<small>9/22–24</small></a></li>
+    <li><a href="#info">情報<small>FLIGHT・LIST</small></a></li>
+  </ul>
+</nav>
+
 <div class="wrap">
+
 <header class="top">
   <h1>Vietnam 2026<small>香港経由 ・ 北から南へ一直線 ・ 5泊7日</small></h1>
   <div class="facts">
     <span><b>9/19（土）</b> 成田発 → <b>9/25（金）</b> 成田着</span>
     <span>大人 <b>5名</b></span>
-    <span>成田 → 香港 → ダナン → ホーチミン → 成田</span>
   </div>
+  <div class="route"><span>成田</span><i>→</i><span>香港 1泊</span><i>→</i><span>ダナン 2泊</span><i>→</i><span>ホーチミン 2泊</span><i>→</i><span>機中泊</span><i>→</i><span>成田</span></div>
 </header>
 
-
-<section class="places">
-  <h2><span class="eyebrow">Places</span>各拠点の地図</h2>
-  <div class="place-grid">
-    <figure class="place">
-      <iframe src="https://www.google.com/maps?q=Hotel%20108%2C%20108%20Soy%20Street%2C%20Mong%20Kok%2C%20Hong%20Kong&z=16&hl=ja&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="香港 ・ Hotel 108, Hong Kong の地図"></iframe>
-      <figcaption>
-        <span class="eyebrow">Stop 1 ・ 9/19–20 ・ 1泊</span>
-        <h3>香港 <span class="pn">Hotel 108, Hong Kong</span></h3>
-        <span class="addr">108 Soy Street, Mong Kok, Kowloon</span>
-        <a href="https://www.google.com/maps/search/?api=1&query=Hotel%20108%2C%20108%20Soy%20Street%2C%20Mong%20Kok%2C%20Hong%20Kong" target="_blank" rel="noopener">Google マップで開く ↗</a>
-      </figcaption>
-    </figure>
-    <figure class="place">
-      <iframe src="https://www.google.com/maps?q=19%20An%20C%C6%B0%202%2C%20An%20H%E1%BA%A3i%20B%E1%BA%AFc%2C%20S%C6%A1n%20Tr%C3%A0%2C%20%C4%90%C3%A0%20N%E1%BA%B5ng%2C%20Vietnam&z=16&hl=ja&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="ダナン ・ Airbnb ・ ミーケービーチ の地図"></iframe>
-      <figcaption>
-        <span class="eyebrow">Stop 2 ・ 9/20–22 ・ 2泊</span>
-        <h3>ダナン <span class="pn">Airbnb ・ ミーケービーチ</span></h3>
-        <span class="addr">19 An Cư 2, An Hải Bắc, Sơn Trà, Đà Nẵng 550000</span>
-        <a href="https://www.google.com/maps/search/?api=1&query=19%20An%20C%C6%B0%202%2C%20An%20H%E1%BA%A3i%20B%E1%BA%AFc%2C%20S%C6%A1n%20Tr%C3%A0%2C%20%C4%90%C3%A0%20N%E1%BA%B5ng%2C%20Vietnam" target="_blank" rel="noopener">Google マップで開く ↗</a>
-      </figcaption>
-    </figure>
-    <figure class="place">
-      <iframe src="https://www.google.com/maps?q=Hoi%20An%20Ancient%20Town%2C%20Qu%E1%BA%A3ng%20Nam%2C%20Vietnam&z=15&hl=ja&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="ホイアン ・ 旧市街（ランタン） の地図"></iframe>
-      <figcaption>
-        <span class="eyebrow">9/21 夜</span>
-        <h3>ホイアン <span class="pn">旧市街（ランタン）</span></h3>
-        <span class="addr">ダナン拠点から車で約 45 分・南へ 30km</span>
-        <a href="https://www.google.com/maps/search/?api=1&query=Hoi%20An%20Ancient%20Town%2C%20Qu%E1%BA%A3ng%20Nam%2C%20Vietnam" target="_blank" rel="noopener">Google マップで開く ↗</a>
-      </figcaption>
-    </figure>
-    <figure class="place">
-      <iframe src="https://www.google.com/maps?q=The%20Solith%20Hotel%20Managed%20by%20Nicecy%2C%208B%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20District%201%2C%20Ho%20Chi%20Minh%20City&z=16&hl=ja&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="ホーチミン ・ The Solith Hotel Managed by Nicecy の地図"></iframe>
-      <figcaption>
-        <span class="eyebrow">Stop 3 ・ 9/22–24 ・ 2泊</span>
-        <h3>ホーチミン <span class="pn">The Solith Hotel Managed by Nicecy</span></h3>
-        <span class="addr">8B-8C Lê Thánh Tôn, District 1, Ho Chi Minh City</span>
-        <a href="https://www.google.com/maps/search/?api=1&query=The%20Solith%20Hotel%20Managed%20by%20Nicecy%2C%208B%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20District%201%2C%20Ho%20Chi%20Minh%20City" target="_blank" rel="noopener">Google マップで開く ↗</a>
-      </figcaption>
-    </figure>
+<!-- ================= 香港 ================= -->
+<section class="city" id="hk">
+  <div class="city-head">
+    <h2>香港<span class="en">HONG KONG</span></h2>
+    <span class="when">9/19（土）〜 9/20（日）・ <b>1泊</b></span>
   </div>
-</section>
 
-<div class="main">
-<section>
-  <h2><span class="eyebrow">Itinerary</span>日程</h2>
-  <div class="days">
+  <figure class="map">
+    <iframe src="https://www.google.com/maps?q=Hotel%20108%2C%20108%20Soy%20Street%2C%20Mong%20Kok%2C%20Hong%20Kong&z=16&hl=ja&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="Hotel 108 周辺の地図"></iframe>
+    <figcaption>
+      <span class="lbl">Stay</span>
+      <span class="name">Hotel 108, Hong Kong</span>
+      <span class="addr">108 Soy Street（豉油街）, Mong Kok, Kowloon ・ 旺角駅すぐ</span>
+      <a href="https://www.google.com/maps/search/?api=1&query=Hotel%20108%2C%20108%20Soy%20Street%2C%20Mong%20Kok%2C%20Hong%20Kong" target="_blank" rel="noopener">Google マップで開く ↗</a>
+    </figcaption>
+  </figure>
 
-    <div class="day">
-      <div class="date"><div class="d">19</div><div class="w">SAT</div></div>
-      <div class="day-body">
-        <h3>成田 → <span class="city">香港</span></h3>
-        <div class="ev flight"><span class="t">15:45</span><span><b>成田 → 香港</b> 香港エクスプレス（直行） 19:40 着</span></div>
-        <div class="ev"><span class="t">21:00</span><span>市内着</span></div>
-        <div class="ev"><span class="t">夜</span><span>香港で夕食。廟街の屋台・茶餐廳・燒味など、予約不要の店で</span></div>
-        <div class="stay"><i class="dotk"></i>Hotel 108, Hong Kong ・ <a href="https://www.google.com/maps/search/Hotel+108+Hong+Kong" target="_blank" rel="noopener">地図 ↗</a></div>
+  <div class="blk">
+    <h3><span class="eyebrow">Schedule</span>日程</h3>
+    <div class="sched">
+      <div class="dayc">
+        <div class="dh"><span class="d">19</span><span class="w">SAT</span><span class="ttl">成田 → 香港</span></div>
+        <div class="ev flight"><span class="t">15:45</span><span><b>成田 → 香港</b> 香港エクスプレス（直行）・19:40 着</span></div>
+        <div class="ev"><span class="t">21:00</span><span>市内着・チェックイン</span></div>
+        <div class="ev"><span class="t">夜</span><span>廟街の屋台・茶餐廳・燒味など、予約不要の店で夕食</span></div>
       </div>
-    </div>
-
-    <div class="day">
-      <div class="date"><div class="d">20</div><div class="w">SUN</div></div>
-      <div class="day-body">
-        <h3>香港 → <span class="city">ダナン</span></h3>
+      <div class="dayc">
+        <div class="dh"><span class="d">20</span><span class="w">SUN</span><span class="ttl">香港 → ダナンへ</span></div>
         <div class="ev"><span class="t">午前</span><span>香港観光（〜昼）</span></div>
-        <div class="ev"><span class="t">14:30</span><span>空港へ</span></div>
-        <div class="ev flight"><span class="t">16:30</span><span><b>香港 → ダナン</b> 香港エクスプレス（直行） 17:25 着</span></div>
-        <div class="ev"><span class="t">夜</span><span>アントゥン（An Thượng）で夕食</span></div>
-        <div class="ev pin"><span class="t">21:00</span><span><b>ドラゴン橋ショー</b>（日曜開催・火と水の演出）</span></div>
-        <div class="stay"><i class="dotk"></i>19 An Cư 2, An Hải Bắc, Sơn Trà ・ <a href="https://www.google.com/maps/search/19+An+C%C6%B0+2,+An+H%E1%BA%A3i+B%E1%BA%AFc,+S%C6%A1n+Tr%C3%A0,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" rel="noopener">地図 ↗</a></div>
+        <div class="ev"><span class="t">14:30</span><span>香港国際空港へ（旺角から A21 バス or MTR＋エアポートエクスプレス）</span></div>
+        <div class="ev flight"><span class="t">16:30</span><span><b>香港 → ダナン</b> 香港エクスプレス（直行）・17:25 着</span></div>
       </div>
     </div>
+  </div>
 
-    <div class="day">
-      <div class="date"><div class="d">21</div><div class="w">MON</div></div>
-      <div class="day-body">
-        <h3><span class="city">ダナン</span> 終日 ・ 夜はホイアン</h3>
-        <div class="ev"><span class="t">昼</span><span><span class="tbd">未確定：</span>①バナヒルズ（黄金橋・半日〜1日）／②五行山＋昼ホイアン／③ビーチでのんびり。バナヒルズは方角が逆（西）でホイアン（南）と組むと強行軍。やるならチャーター車必須</span></div>
-        <div class="ev pin"><span class="t">夜</span><span><b>ホイアン旧市街でランタン</b>（確定）。入場券・ランタン舟は現地購入 ・ <a href="https://www.google.com/maps/search/Hoi+An+Ancient+Town" target="_blank" rel="noopener">地図 ↗</a></span></div>
-        <div class="stay"><i class="dotk"></i>19 An Cư 2, An Hải Bắc, Sơn Trà（2泊目）</div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="date"><div class="d">22</div><div class="w">TUE</div></div>
-      <div class="day-body">
-        <h3>ダナン → <span class="city">ホーチミン</span></h3>
-        <div class="ev"><span class="t">07:00</span><span>ダナン空港へ（早朝移動）</span></div>
-        <div class="ev flight"><span class="t">08:55</span><span><b>ダナン → ホーチミン</b> ベトジェット（国内線） 10:15 着</span></div>
-        <div class="ev"><span class="t">午後</span><span>ホーチミン観光。ホテルから ドンコイ通り 0.6km・オペラハウス 710m・レタントン日本街 370m</span></div>
-        <div class="stay"><i class="dotk"></i>The Solith Hotel（1区）・ <a href="https://www.google.com/maps/search/8B-8C+L%C3%AA+Th%C3%A1nh+T%C3%B4n,+District+1,+Ho+Chi+Minh+City" target="_blank" rel="noopener">地図 ↗</a></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="date"><div class="d">23</div><div class="w">WED</div></div>
-      <div class="day-body">
-        <h3><span class="city">ホーチミン</span> 終日</h3>
-        <div class="ev"><span class="t">終日</span><span>自由行動。メコン川ツアーに行くなら要予約。博物館・市場は予約不要 ・ <a href="https://www.google.com/maps/search/Ben+Thanh+Market" target="_blank" rel="noopener">ベンタイン市場 ↗</a></span></div>
-        <div class="stay"><i class="dotk"></i>The Solith Hotel（2泊目）</div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="date night"><div class="d">24</div><div class="w">THU</div></div>
-      <div class="day-body">
-        <h3><span class="city">ホーチミン</span> → 機中泊</h3>
-        <div class="ev"><span class="t">日中</span><span>レイトチェックアウト or 荷物預けで市内</span></div>
-        <div class="ev"><span class="t">21:00</span><span>タンソンニャット空港へ</span></div>
-        <div class="ev flight"><span class="t">23:35</span><span><b>ホーチミン → 成田</b> ベトジェット（直行） 翌 07:55 着</span></div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="date"><div class="d">25</div><div class="w">FRI</div></div>
-      <div class="day-body">
-        <h3>成田 着・解散</h3>
-        <div class="ev"><span class="t">07:55</span><span>成田国際空港 到着</span></div>
-      </div>
-    </div>
-
+  <div class="blk">
+    <h3><span class="eyebrow">Spots</span>行く場所</h3>
+    <ul class="spots">
+      <li class="spot"><span class="n">廟街（テンプルストリート）夜市<span class="tag fix">9/19 夜</span></span><span class="m">ホテルから徒歩約 15 分。屋台・海鮮・占い</span><a href="https://www.google.com/maps/search/?api=1&query=Temple%20Street%20Night%20Market%2C%20Hong%20Kong" target="_blank" rel="noopener">地図</a></li>
+      <li class="spot"><span class="n">女人街（通菜街）</span><span class="m">ホテルから徒歩 3 分。夜市・雑貨</span><a href="https://www.google.com/maps/search/?api=1&query=Ladies%20Market%2C%20Tung%20Choi%20Street%2C%20Mong%20Kok" target="_blank" rel="noopener">地図</a></li>
+      <li class="spot"><span class="n">尖沙咀 プロムナード</span><span class="m">ビクトリアハーバーの夜景。MTR で 2 駅</span><a href="https://www.google.com/maps/search/?api=1&query=Tsim%20Sha%20Tsui%20Promenade" target="_blank" rel="noopener">地図</a></li>
+      <li class="spot"><span class="n">香港国際空港<span class="tag">9/20 14:30</span></span><span class="m">出発 16:30。2 時間前に到着</span><a href="https://www.google.com/maps/search/?api=1&query=Hong%20Kong%20International%20Airport" target="_blank" rel="noopener">地図</a></li>
+    </ul>
   </div>
 </section>
 
-<aside>
+<!-- ================= ダナン ================= -->
+<section class="city" id="dn">
+  <div class="city-head">
+    <h2>ダナン<span class="en">DA NANG</span></h2>
+    <span class="when">9/20（日）〜 9/22（火）・ <b>2泊</b></span>
+  </div>
+
+  <figure class="map">
+    <iframe src="https://www.google.com/maps?q=19%20An%20C%C6%B0%202%2C%20An%20H%E1%BA%A3i%20B%E1%BA%AFc%2C%20S%C6%A1n%20Tr%C3%A0%2C%20%C4%90%C3%A0%20N%E1%BA%B5ng%2C%20Vietnam&z=16&hl=ja&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="ダナンの宿周辺の地図"></iframe>
+    <figcaption>
+      <span class="lbl">Stay ・ Airbnb</span>
+      <span class="name">ミーケービーチ（An Hải Bắc）</span>
+      <span class="addr">19 An Cư 2, An Hải Bắc, Sơn Trà, Đà Nẵng 550000 ・ ビーチ徒歩圏・空港まで車 10〜15 分</span>
+      <a href="https://www.google.com/maps/search/?api=1&query=19%20An%20C%C6%B0%202%2C%20An%20H%E1%BA%A3i%20B%E1%BA%AFc%2C%20S%C6%A1n%20Tr%C3%A0%2C%20%C4%90%C3%A0%20N%E1%BA%B5ng" target="_blank" rel="noopener">Google マップで開く ↗</a>
+    </figcaption>
+  </figure>
+
+  <div class="blk">
+    <h3><span class="eyebrow">Schedule</span>日程</h3>
+    <div class="sched">
+      <div class="dayc">
+        <div class="dh"><span class="d">20</span><span class="w">SUN</span><span class="ttl">ダナン着・ドラゴン橋</span></div>
+        <div class="ev flight"><span class="t">17:25</span><span><b>ダナン着</b>・送迎車で宿へ（チャーター手配予定）</span></div>
+        <div class="ev"><span class="t">夜</span><span>アントゥン（An Thượng）のグルメ街で夕食</span></div>
+        <div class="ev pin"><span class="t">21:00</span><span><b>ドラゴン橋ショー</b>（土日開催・火と水を吐く）・ <a href="https://www.google.com/maps/search/?api=1&query=Dragon%20Bridge%2C%20Da%20Nang" target="_blank" rel="noopener">地図 ↗</a></span></div>
+      </div>
+      <div class="dayc">
+        <div class="dh"><span class="d">21</span><span class="w">MON</span><span class="ttl">終日ダナン・夜ホイアン</span></div>
+        <div class="ev"><span class="t">昼</span><span><span class="tbd">未確定：</span>①バナヒルズ（黄金橋・半日〜1日）／②五行山＋昼ホイアン／③ビーチでのんびり。バナヒルズは西、ホイアンは南で方角が逆。両方やるならチャーター車必須</span></div>
+        <div class="ev pin"><span class="t">夜</span><span><b>ホイアン旧市街でランタン</b>（確定）。車で約 45 分。入場券・ランタン舟は現地購入</span></div>
+      </div>
+      <div class="dayc">
+        <div class="dh"><span class="d">22</span><span class="w">TUE</span><span class="ttl">早朝出発 → ホーチミン</span></div>
+        <div class="ev"><span class="t">07:00</span><span>ダナン国際空港へ（早朝移動・送迎車）</span></div>
+        <div class="ev flight"><span class="t">08:55</span><span><b>ダナン → ホーチミン</b> ベトジェット（国内線）・10:15 着</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h3><span class="eyebrow">Spots</span>行く場所</h3>
+    <div class="maps2">
+      <figure class="map small">
+        <iframe src="https://www.google.com/maps?q=Hoi%20An%20Ancient%20Town%2C%20Qu%E1%BA%A3ng%20Nam%2C%20Vietnam&z=15&hl=ja&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="ホイアン旧市街の地図"></iframe>
+        <figcaption>
+          <span class="lbl">9/21 夜 ・ 確定</span>
+          <span class="name">ホイアン旧市街</span>
+          <span class="addr">宿から南へ約 30km・車で 45 分。ランタンと川沿いの夜景</span>
+          <a href="https://www.google.com/maps/search/?api=1&query=Hoi%20An%20Ancient%20Town" target="_blank" rel="noopener">Google マップで開く ↗</a>
+        </figcaption>
+      </figure>
+      <figure class="map small">
+        <iframe src="https://www.google.com/maps?q=Dragon%20Bridge%2C%20Da%20Nang%2C%20Vietnam&z=15&hl=ja&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="ドラゴン橋の地図"></iframe>
+        <figcaption>
+          <span class="lbl">9/20 21:00 ・ 確定</span>
+          <span class="name">ドラゴン橋（Cầu Rồng）</span>
+          <span class="addr">宿から車で 10 分。ハン川沿い・東岸のたもとが見やすい</span>
+          <a href="https://www.google.com/maps/search/?api=1&query=Dragon%20Bridge%2C%20Da%20Nang" target="_blank" rel="noopener">Google マップで開く ↗</a>
+        </figcaption>
+      </figure>
+    </div>
+    <ul class="spots" style="margin-top:10px">
+      <li class="spot"><span class="n">アントゥン（An Thượng）グルメ街<span class="tag fix">9/20 夜</span></span><span class="m">宿から徒歩圏。海鮮・ベトナム料理・バー</span><a href="https://www.google.com/maps/search/?api=1&query=An%20Thuong%20Street%2C%20Da%20Nang" target="_blank" rel="noopener">地図</a></li>
+      <li class="spot"><span class="n">ミーケービーチ</span><span class="m">宿の目の前。朝夕の散歩・海水浴</span><a href="https://www.google.com/maps/search/?api=1&query=My%20Khe%20Beach%2C%20Da%20Nang" target="_blank" rel="noopener">地図</a></li>
+      <li class="spot"><span class="n">バナヒルズ・黄金橋<span class="tag">候補①</span></span><span class="m">西へ車 1 時間。半日〜1 日。入場券はオンライン購入で割安</span><a href="https://www.google.com/maps/search/?api=1&query=Ba%20Na%20Hills%2C%20Da%20Nang" target="_blank" rel="noopener">地図</a></li>
+      <li class="spot"><span class="n">五行山（マーブルマウンテン）<span class="tag">候補②</span></span><span class="m">ホイアン方面の途中。洞窟と展望台、2 時間</span><a href="https://www.google.com/maps/search/?api=1&query=Marble%20Mountains%2C%20Da%20Nang" target="_blank" rel="noopener">地図</a></li>
+      <li class="spot"><span class="n">クラウンプラザ カジノ<span class="tag">任意</span></span><span class="m">ミーケー近く。パスポート提示のみ・予約不要</span><a href="https://www.google.com/maps/search/?api=1&query=Crowne%20Plaza%20Danang%20Casino" target="_blank" rel="noopener">地図</a></li>
+      <li class="spot"><span class="n">ホイアナ カジノ<span class="tag">任意</span></span><span class="m">ホイアン南の大型リゾート</span><a href="https://www.google.com/maps/search/?api=1&query=Hoiana%20Resort%20%26%20Golf" target="_blank" rel="noopener">地図</a></li>
+      <li class="spot"><span class="n">ダナン国際空港<span class="tag">9/22 07:00</span></span><span class="m">出発 08:55。宿から車 10〜15 分</span><a href="https://www.google.com/maps/search/?api=1&query=Da%20Nang%20International%20Airport" target="_blank" rel="noopener">地図</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= ホーチミン ================= -->
+<section class="city" id="hcm">
+  <div class="city-head">
+    <h2>ホーチミン<span class="en">HO CHI MINH</span></h2>
+    <span class="when">9/22（火）〜 9/24（木）・ <b>2泊</b> → 深夜便で帰国</span>
+  </div>
+
+  <figure class="map">
+    <iframe src="https://www.google.com/maps?q=The%20Solith%20Hotel%20Managed%20by%20Nicecy%2C%208B%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20District%201%2C%20Ho%20Chi%20Minh%20City&z=16&hl=ja&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="The Solith Hotel 周辺の地図"></iframe>
+    <figcaption>
+      <span class="lbl">Stay ・ 4★</span>
+      <span class="name">The Solith Hotel Managed by Nicecy</span>
+      <span class="addr">8B-8C Lê Thánh Tôn, District 1 ・ 屋外プール・朝食 6:30–9:30 ・ レタントン日本街まで 370m</span>
+      <a href="https://www.google.com/maps/search/?api=1&query=The%20Solith%20Hotel%20Managed%20by%20Nicecy%2C%208B%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20District%201%2C%20Ho%20Chi%20Minh%20City" target="_blank" rel="noopener">Google マップで開く ↗</a>
+    </figcaption>
+  </figure>
+
+  <div class="blk">
+    <h3><span class="eyebrow">Schedule</span>日程</h3>
+    <div class="sched">
+      <div class="dayc">
+        <div class="dh"><span class="d">22</span><span class="w">TUE</span><span class="ttl">ホーチミン着・1 区散策</span></div>
+        <div class="ev flight"><span class="t">10:15</span><span><b>ホーチミン着</b>・タンソンニャット空港から市内へ車 30 分</span></div>
+        <div class="ev"><span class="t">午後</span><span>ホテル周辺を散策。ドンコイ通り・オペラハウス・レタントン日本街は徒歩圏</span></div>
+        <div class="ev"><span class="t">夜</span><span>1 区で夕食</span></div>
+      </div>
+      <div class="dayc">
+        <div class="dh"><span class="d">23</span><span class="w">WED</span><span class="ttl">終日ホーチミン</span></div>
+        <div class="ev"><span class="t">終日</span><span>自由行動。メコン川ツアーに行くなら要予約。博物館・市場は予約不要</span></div>
+      </div>
+      <div class="dayc">
+        <div class="dh"><span class="d">24</span><span class="w">THU</span><span class="ttl">日中市内 → 深夜便</span></div>
+        <div class="ev"><span class="t">日中</span><span>レイトチェックアウト or 荷物を預けて市内</span></div>
+        <div class="ev"><span class="t">21:00</span><span>タンソンニャット空港へ</span></div>
+        <div class="ev flight"><span class="t">23:35</span><span><b>ホーチミン → 成田</b> ベトジェット（直行）・翌 9/25 07:55 着・解散</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h3><span class="eyebrow">Spots</span>行く場所</h3>
+    <figure class="map small">
+      <iframe src="https://www.google.com/maps?q=Ben%20Thanh%20Market%2C%20Ho%20Chi%20Minh%20City&z=15&hl=ja&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="ベンタイン市場周辺の地図"></iframe>
+      <figcaption>
+        <span class="lbl">1 区 中心部</span>
+        <span class="name">ベンタイン市場</span>
+        <span class="addr">ホテルから 1.3km。市場は予約不要。周辺にブイビエン通り・統一会堂</span>
+        <a href="https://www.google.com/maps/search/?api=1&query=Ben%20Thanh%20Market" target="_blank" rel="noopener">Google マップで開く ↗</a>
+      </figcaption>
+    </figure>
+    <ul class="spots" style="margin-top:10px">
+      <li class="spot"><span class="n">ドンコイ通り</span><span class="m">ホテルから 0.6km。カフェ・雑貨・ホテル街</span><a href="https://www.google.com/maps/search/?api=1&query=Dong%20Khoi%20Street%2C%20Ho%20Chi%20Minh%20City" target="_blank" rel="noopener">地図</a></li>
+      <li class="spot"><span class="n">サイゴン オペラハウス</span><span class="m">ホテルから 710m。夜はライトアップ</span><a href="https://www.google.com/maps/search/?api=1&query=Saigon%20Opera%20House" target="_blank" rel="noopener">地図</a></li>
+      <li class="spot"><span class="n">レタントン 日本街</span><span class="m">ホテルから 370m。日本食・居酒屋が集まる路地</span><a href="https://www.google.com/maps/search/?api=1&query=L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%20Japanese%20Town%2C%20Ho%20Chi%20Minh%20City" target="_blank" rel="noopener">地図</a></li>
+      <li class="spot"><span class="n">サイゴン大教会・中央郵便局</span><span class="m">ホテルから徒歩 10 分。定番の写真スポット</span><a href="https://www.google.com/maps/search/?api=1&query=Saigon%20Central%20Post%20Office" target="_blank" rel="noopener">地図</a></li>
+      <li class="spot"><span class="n">メコン川ツアー<span class="tag">任意・要予約</span></span><span class="m">ミトー方面へ日帰り。行くなら 9/23</span><a href="https://www.google.com/maps/search/?api=1&query=My%20Tho%2C%20Tien%20Giang" target="_blank" rel="noopener">地図</a></li>
+      <li class="spot"><span class="n">タンソンニャット国際空港<span class="tag">9/24 21:00</span></span><span class="m">出発 23:35。市内から車 30 分</span><a href="https://www.google.com/maps/search/?api=1&query=Tan%20Son%20Nhat%20International%20Airport" target="_blank" rel="noopener">地図</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 情報 ================= -->
+<section class="city" id="info">
+  <div class="city-head">
+    <h2>情報<span class="en">FLIGHTS ・ LIST</span></h2>
+  </div>
+
   <div class="card">
-    <h2>フライト（5名・Trip.com 参照値）</h2>
+    <h3>フライト（5名・Trip.com 参照値）</h3>
     <table>
       <thead><tr><th>日</th><th>区間・便</th><th class="num">1人</th></tr></thead>
       <tbody>
@@ -277,26 +352,18 @@ footer{margin-top:40px;font-size:12px;color:var(--muted);border-top:1px solid va
   </div>
 
   <div class="card">
-    <h2>宿泊（すべて確定）</h2>
-    <div class="hotel">
-      <span class="n">Hotel 108, Hong Kong</span>
-      <span class="a">9/19–20 ・ クイーン ¥16,753 ＋ ファミリー ¥27,063 ＝ ¥43,815（返金不可）</span>
-      <span class="m"><a href="https://www.google.com/maps/search/Hotel+108+Hong+Kong" target="_blank" rel="noopener">地図 ↗</a></span>
-    </div>
-    <div class="hotel">
-      <span class="n">ダナン ・ ミーケービーチ（Airbnb）</span>
-      <span class="a">9/20–22 ・ 19 An Cư 2, An Hải Bắc, Sơn Trà, Đà Nẵng 550000</span>
-      <span class="m"><a href="https://www.google.com/maps/search/19+An+C%C6%B0+2,+An+H%E1%BA%A3i+B%E1%BA%AFc,+S%C6%A1n+Tr%C3%A0,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" rel="noopener">地図 ↗</a></span>
-    </div>
-    <div class="hotel">
-      <span class="n">The Solith Hotel Managed by Nicecy</span>
-      <span class="a">9/22–24 ・ 8B-8C Lê Thánh Tôn, District 1 ・ 4★ ・ 屋外プール・朝食 6:30–9:30</span>
-      <span class="m"><a href="https://www.google.com/maps/search/8B-8C+L%C3%AA+Th%C3%A1nh+T%C3%B4n,+District+1,+Ho+Chi+Minh+City" target="_blank" rel="noopener">地図 ↗</a><a href="https://www.booking.com/hotel/vn/the-solith.ja.html" target="_blank" rel="noopener">Booking.com ↗</a></span>
-    </div>
+    <h3>宿泊（すべて確定）</h3>
+    <table>
+      <tbody>
+        <tr><td class="mono">9/19–20</td><td><b>Hotel 108, Hong Kong</b><br><small>クイーン ¥16,753 ＋ ファミリー ¥27,063 ＝ ¥43,815（返金不可）</small></td></tr>
+        <tr><td class="mono">9/20–22</td><td><b>ダナン Airbnb</b><br><small>19 An Cư 2, An Hải Bắc, Sơn Trà, Đà Nẵng 550000</small></td></tr>
+        <tr><td class="mono">9/22–24</td><td><b>The Solith Hotel Managed by Nicecy</b><br><small>8B-8C Lê Thánh Tôn, District 1 ・ <a href="https://www.booking.com/hotel/vn/the-solith.ja.html" target="_blank" rel="noopener">Booking.com ↗</a></small></td></tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="card">
-    <h2>予約・購入チェックリスト</h2>
+    <h3>予約・購入チェックリスト</h3>
     <ul class="check">
       <li>航空券 4本（5名分）← 最優先</li>
       <li class="on">宿：香港 1泊（Hotel 108）</li>
@@ -312,7 +379,7 @@ footer{margin-top:40px;font-size:12px;color:var(--muted);border-top:1px solid va
   </div>
 
   <div class="card">
-    <h2>注意・未確定</h2>
+    <h3>注意・未確定</h3>
     <ul class="note">
       <li>Airbnb はパスポートで宿泊者登録。5名分をホストへ（残り3名分が未提出）</li>
       <li>早朝／深夜の空港移動が2回：9/22 朝 07:00・9/24 夜 21:00</li>
@@ -320,11 +387,9 @@ footer{margin-top:40px;font-size:12px;color:var(--muted);border-top:1px solid va
       <li><span class="tbd">未確定：</span>9/21 昼の過ごし方／カジノを入れるか（クラウンプラザ・ホイアナ）</li>
     </ul>
   </div>
-</aside>
-</div>
+</section>
 
-<footer>出典: private/ベトナム旅行2026.md（2026-09-16 時点）。地図は Google マップの埋め込み。各地点の「地図 ↗」からアプリでも開けます。</footer>
+<footer>出典: works/private/ベトナム旅行2026.md（2026-09-16 時点）。地図は Google マップの埋め込み。「地図」ボタンからアプリでも開けます。</footer>
 </div>
-
 </body>
 </html>
