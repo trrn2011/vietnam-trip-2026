@@ -157,7 +157,7 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
     <li><a href="#hk">香港<small>9/19–20</small></a></li>
     <li><a href="#dn">ダナン<small>9/20–22</small></a></li>
     <li><a href="#hcm">ホーチミン<small>9/22–23</small></a></li>
-    <li><a href="#info">情報<small>FLIGHT・LIST</small></a></li>
+    <li><a href="#info">情報<small>STAY・LIST</small></a></li>
   </ul>
 </nav>
 
@@ -243,7 +243,7 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
       </div>
       <div class="dayc">
         <div class="dh"><span class="d">21</span><span class="w">MON</span><span class="ttl">終日ダナン・夜ホイアン</span></div>
-        <div class="ev"><span class="t">昼</span><span><span class="tbd">未確定：</span>①バナヒルズ（黄金橋・半日〜1日）／②五行山＋昼ホイアン／③ビーチでのんびり。バナヒルズは西、ホイアンは南で方角が逆。両方やるならチャーター車必須</span></div>
+        <div class="ev"><span class="t">昼</span><span><span class="tbd">未確定：</span>①五行山＋昼からホイアン／②ビーチでのんびり → 夕方ホイアンへ。バナヒルズは行かない</span></div>
         <div class="ev pin"><span class="t">夜</span><span><b>ホイアン旧市街でランタン</b>（確定）。車で約 45 分。入場券・ランタン舟は現地購入</span></div>
       </div>
       <div class="dayc">
@@ -305,22 +305,7 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
 <!-- ================= 情報 ================= -->
 <section class="city" id="info">
   <div class="city-head">
-    <h2>情報<span class="en">FLIGHTS ・ LIST</span></h2>
-  </div>
-
-  <div class="card">
-    <h3>フライト（5名・Trip.com 参照値）</h3>
-    <table>
-      <thead><tr><th>日</th><th>区間・便</th><th class="num">1人</th></tr></thead>
-      <tbody>
-        <tr><td class="mono">9/19</td><td>成田→香港<br><small>香港エクスプレス 15:45→19:40</small></td><td class="num">¥49,940</td></tr>
-        <tr><td class="mono">9/20</td><td>香港→ダナン<br><small>香港エクスプレス 16:30→17:25</small></td><td class="num">¥19,410</td></tr>
-        <tr><td class="mono">9/22</td><td>ダナン→ホーチミン<br><small>ベトジェット 08:55→10:15</small></td><td class="num">¥7,750</td></tr>
-        <tr><td class="mono">9/23</td><td>ホーチミン→成田<br><small>ベトジェット 23:35→翌07:55</small></td><td class="num">¥51,800</td></tr>
-      </tbody>
-      <tfoot><tr><td></td><td>合計 1人 / 5名</td><td class="num">¥128,900<br>¥644,500</td></tr></tfoot>
-    </table>
-    <p class="note" style="padding-left:0;margin-top:10px">LCC 中心のため受託手荷物は別料金。空席・価格は変動あり。</p>
+    <h2>情報<span class="en">STAY ・ LIST</span></h2>
   </div>
 
   <div class="card">
@@ -337,12 +322,10 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
   <div class="card">
     <h3>予約・購入チェックリスト</h3>
     <ul class="check">
-      <li>航空券 4本（5名分）← 最優先</li>
       <li class="on">宿：香港 1泊（Hotel 108）</li>
       <li class="on">宿：ダナン 2泊（Airbnb・An Hải Bắc）</li>
       <li class="on">宿：ホーチミン 1泊（The Solith）</li>
       <li>チャーター車（7人乗り）：9/21 夜ホイアン往復＋空港送迎 3回</li>
-      <li>バナヒルズ入場券（行く場合・オンライン購入）</li>
       <li>人気レストランの夜枠（任意・電話予約）</li>
       <li>スパ・マッサージ（当日でOK）</li>
       <li>メコン川ツアー（行く場合）</li>
@@ -381,8 +364,7 @@ const SPOTS = {
     {n:"ドラゴン橋（Cầu Rồng）", kind:"fix", tag:"9/20 21:00", m:"宿から車 10 分。ハン川沿い・東岸のたもとが見やすい", ll:[16.06117,108.22790], q:"Dragon Bridge, Da Nang"},
     {n:"ミーケービーチ", kind:"opt", m:"宿の目の前。朝夕の散歩・海水浴", ll:[16.07563,108.24688], q:"My Khe Beach, Da Nang"},
     {n:"ホイアン旧市街", far:true, kind:"fix", tag:"9/21 夜", m:"宿から南へ約 30km・車で 45 分。ランタンと川沿いの夜景", ll:[15.87795,108.32399], q:"Hoi An Ancient Town"},
-    {n:"バナヒルズ・黄金橋", far:true, kind:"cand", tag:"候補①", m:"西へ車 1 時間。半日〜1 日。入場券はオンライン購入で割安", ll:[15.99586,107.98907], q:"Sun World Ba Na Hills"},
-    {n:"五行山（マーブルマウンテン）", kind:"cand", tag:"候補②", m:"ホイアン方面の途中。洞窟と展望台、2 時間", ll:[16.00370,108.26330], q:"Marble Mountains, Da Nang"},
+    {n:"五行山（マーブルマウンテン）", kind:"cand", tag:"候補①", m:"ホイアン方面の途中。洞窟と展望台、2 時間", ll:[16.00370,108.26330], q:"Marble Mountains, Da Nang"},
     {n:"クラウンプラザ カジノ", kind:"opt", tag:"任意", m:"ミーケー南。パスポート提示のみ・予約不要", ll:[16.02732,108.25690], q:"Crowne Plaza Danang"},
     {n:"ホイアナ カジノ", far:true, kind:"opt", tag:"任意", m:"ホイアン南の大型リゾート（位置は概略）", ll:[15.79500,108.35500], q:"Hoiana Resort & Golf"},
     {n:"ダナン国際空港", far:true, kind:"air", tag:"9/22 07:00", m:"出発 08:55。宿から車 10〜15 分", ll:[16.04258,108.19716], q:"Da Nang International Airport"},
