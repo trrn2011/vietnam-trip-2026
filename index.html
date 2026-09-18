@@ -56,6 +56,8 @@ section.city{margin-top:28px;padding-top:8px}
 .city-head h2 .en{font-family:"DM Mono",monospace;font-size:12px;font-weight:400;color:var(--muted);letter-spacing:.1em;margin-left:10px}
 .city-head .when{font-size:13.5px;color:var(--ink-2);font-weight:500}
 .city-head .when b{color:var(--gold)}
+.city-head .rate{flex-basis:100%;font-size:13px;color:var(--ink-2);font-family:"DM Mono","Zen Kaku Gothic New",monospace;font-variant-numeric:tabular-nums;margin-top:-4px}
+.city-head .rate::before{content:"¥ ";color:var(--accent);font-weight:700}
 
 /* map */
 .mapbox{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);margin:0 0 14px}
@@ -183,6 +185,7 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
   <div class="city-head">
     <h2>香港<span class="en">HONG KONG</span></h2>
     <span class="when">9/19（土）〜 9/20（日）・ <b>1泊</b></span>
+    <span class="rate">1 HKD ≒ 19.9 円 ・ HK$100 ≒ 2,000 円（×20 で暗算）</span>
   </div>
 
   <div class="mapbox">
@@ -225,6 +228,7 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
   <div class="city-head">
     <h2>ダナン<span class="en">DA NANG</span></h2>
     <span class="when">9/20（日）〜 9/22（火）・ <b>2泊</b></span>
+    <span class="rate">1 万 VND ≒ 60 円 ・ 10 万 VND ≒ 600 円（0 を 3 つ取って ×0.6）</span>
   </div>
 
   <div class="mapbox">
@@ -272,6 +276,7 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
   <div class="city-head">
     <h2>ホーチミン<span class="en">HO CHI MINH</span></h2>
     <span class="when">9/22（火）〜 9/23（水）・ <b>1泊</b> → 深夜便で帰国</span>
+    <span class="rate">1 万 VND ≒ 60 円 ・ 10 万 VND ≒ 600 円 ・ カジノ等の $10 ≒ 1,560 円</span>
   </div>
 
   <div class="mapbox">
