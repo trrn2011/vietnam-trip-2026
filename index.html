@@ -237,6 +237,7 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
         <div class="dh"><span class="d">21</span><span class="w">MON</span><span class="ttl">終日ダナン・夜ホイアン</span></div>
         <div class="ev"><span class="t">昼</span><span><span class="tbd">未確定：</span>①五行山＋昼からホイアン／②ビーチでのんびり → 夕方ホイアンへ。バナヒルズは行かない</span></div>
         <div class="ev pin"><span class="t">夜</span><span><b>ホイアン旧市街でランタン</b>（確定）。車で約 45 分。入場券・ランタン舟は現地購入</span></div>
+        <div class="ev pin"><span class="t">空き時間</span><span><b>クラウンプラザ カジノ</b>（確定）。9/20 ドラゴン橋のあとか 9/21 の昼に。24 時間営業・パスポート原本を持参</span></div>
       </div>
       <div class="dayc">
         <div class="dh"><span class="d">22</span><span class="w">TUE</span><span class="ttl">早朝出発 → ホーチミン</span></div>
@@ -331,12 +332,13 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
       <li>Airbnb はパスポートで宿泊者登録。5名分をホストへ（残り3名分が未提出）</li>
       <li>早朝／深夜の空港移動が2回：9/22 朝 07:00・9/23 夜 21:00</li>
       <li>ビザは不要（ベトナム45日免除／香港短期免除）</li>
-      <li><span class="tbd">未確定：</span>9/21 昼の過ごし方／カジノを入れるか（クラウンプラザ・ホイアナ）</li>
+      <li>カジノはクラウンプラザに確定。外国人のみ入場可・18 歳以上・パスポート原本必須。タンクトップ等の露出の多い服は不可</li>
+      <li><span class="tbd">未確定：</span>9/21 昼の過ごし方</li>
     </ul>
   </div>
 </section>
 
-<footer>出典: works/private/ベトナム旅行2026.md（2026-09-16 時点）。地図は OpenStreetMap（© OpenStreetMap contributors）。ピンやリストをタップすると詳細と Google マップへのリンクが出ます。</footer>
+<footer>出典: works/private/ベトナム旅行2026.md（2026-09-18 時点）。地図は OpenStreetMap（© OpenStreetMap contributors）。ピンやリストをタップすると詳細と Google マップへのリンクが出ます。</footer>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" referrerpolicy="no-referrer"></script>
@@ -357,8 +359,7 @@ const SPOTS = {
     {n:"ミーケービーチ", kind:"opt", m:"宿の目の前。朝夕の散歩・海水浴", ll:[16.07563,108.24688], q:"My Khe Beach, Da Nang"},
     {n:"ホイアン旧市街", far:true, kind:"fix", tag:"9/21 夜", m:"宿から南へ約 30km・車で 45 分。ランタンと川沿いの夜景", ll:[15.87795,108.32399], q:"Hoi An Ancient Town"},
     {n:"五行山（マーブルマウンテン）", kind:"cand", tag:"候補①", m:"ホイアン方面の途中。洞窟と展望台、2 時間", ll:[16.00370,108.26330], q:"Marble Mountains, Da Nang"},
-    {n:"クラウンプラザ カジノ", kind:"opt", tag:"任意", m:"ミーケー南。パスポート提示のみ・予約不要", ll:[16.02732,108.25690], q:"Crowne Plaza Danang"},
-    {n:"ホイアナ カジノ", far:true, kind:"opt", tag:"任意", m:"ホイアン南の大型リゾート（位置は概略）", ll:[15.79500,108.35500], q:"Hoiana Resort & Golf"},
+    {n:"クラウンプラザ カジノ（Crowne International Club）", kind:"fix", tag:"確定", m:"ミーケー南・五行山手前、宿から車 15 分。24 時間・予約不要・パスポート原本必須（外国人のみ）。ライブ卓はバカラ 8／BJ 2／大小 2／ルーレット 1、ミニマム $10〜。スロット約 100 台・無料シャトルあり", ll:[16.02732,108.25690], q:"Crowne Plaza Danang"},
     {n:"ダナン国際空港", far:true, kind:"air", tag:"9/22 07:00", m:"出発 08:55。宿から車 10〜15 分", ll:[16.04258,108.19716], q:"Da Nang International Airport"},
   ],
   hcm: [
