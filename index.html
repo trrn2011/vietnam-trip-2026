@@ -133,6 +133,12 @@ section.city{margin-top:28px;padding-top:8px}
 .spot.open .chev{transform:rotate(-135deg);border-color:var(--accent)}
 .spot .detail{grid-column:1/-1;border-top:1px dashed var(--line);margin-top:8px;padding-top:10px;cursor:default}
 .spot .detail p{margin:0 0 10px;font-size:14px;line-height:1.7;color:var(--ink)}
+.spot .food{margin:0 0 10px;padding:10px 12px;border-radius:8px;background:var(--gold-soft)}
+.spot .food .fh{display:block;font:500 10.5px/1 "DM Mono",monospace;letter-spacing:.12em;color:var(--gold);margin-bottom:6px}
+.spot .food ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.spot .food li{font-size:13px;line-height:1.55}
+.spot .food li b{display:block;font-size:13.5px}
+.spot .food li span{color:var(--ink-2)}
 .spot .links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
 .spot .links a{display:flex;align-items:center;min-height:40px;padding:6px 12px;border-radius:8px;background:var(--bg);border:1px solid var(--line);color:var(--accent);text-decoration:none;font-size:13.5px;font-weight:500;line-height:1.4}
 .spot .tomap{margin-top:10px;font:inherit;font-size:12.5px;font-weight:700;color:var(--ink-2);background:transparent;border:1px solid var(--line);border-radius:8px;padding:7px 12px;min-height:36px;cursor:pointer}
@@ -190,7 +196,7 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
 
   <div class="mapbox">
     <div class="mapc" id="map-hk"></div>
-    <div class="mapbar"><span class="lg"><i style="background:#0E7C86"></i>宿</span><span class="lg"><i style="background:#2F855A"></i>確定</span><span class="lg"><i style="background:#8A95A5"></i>任意</span><span class="lg"><i style="background:#4A5568"></i>空港</span><button type="button" data-fit="hk">全ピンを表示</button></div>
+    <div class="mapbar"><span class="lg"><i style="background:#0E7C86"></i>宿</span><span class="lg"><i style="background:#2F855A"></i>確定</span><span class="lg"><i style="background:#B8862B"></i>候補</span><span class="lg"><i style="background:#8A95A5"></i>任意</span><span class="lg"><i style="background:#4A5568"></i>空港</span><button type="button" data-fit="hk">全ピンを表示</button></div>
     <div class="stayline">
       <span class="lbl">Stay</span>
       <span class="name">Hotel 108, Hong Kong</span>
@@ -206,7 +212,8 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
         <div class="dh"><span class="d">19</span><span class="w">SAT</span><span class="ttl">成田 → 香港</span></div>
         <div class="ev flight"><span class="t">15:45</span><span><b>成田 → 香港</b> 香港エクスプレス（直行）・19:40 着</span></div>
         <div class="ev"><span class="t">21:00</span><span>市内着・チェックイン</span></div>
-        <div class="ev"><span class="t">夜</span><span>廟街の屋台・茶餐廳・燒味など、予約不要の店で夕食</span></div>
+        <div class="ev"><span class="t">21:30</span><span><span class="tbd">夜景を見るなら：</span>先に尖沙咀プロムナードへ（MTR 10 分・デッキは 23:00 まで）。余裕があればスターフェリー往復（最終 23:30）</span></div>
+        <div class="ev pin"><span class="t">夜</span><span><b>廟街（テンプルストリート）で夕食</b>（確定）。煲仔飯・海鮮の大排檔、予約不要。深夜 1 時頃まで賑わう</span></div>
       </div>
       <div class="dayc">
         <div class="dh"><span class="d">20</span><span class="w">SUN</span><span class="ttl">香港 → ダナンへ</span></div>
@@ -379,15 +386,17 @@ const SPOTS = {
   hk: [
     {n:"Hotel 108, Hong Kong", kind:"stay", tag:"9/19 泊", m:"108 Soy Street, Mong Kok ・ 旺角駅すぐ", ll:[22.31692,114.17277], q:"Hotel 108, 108 Soy Street, Mong Kok, Hong Kong",
      d:"旺角の中心・豉油街にある小型ホテル。MTR 旺角駅から徒歩数分で、女人街・廟街・空港バス A21 の停留所が徒歩圏。9/19 は 2 部屋（クイーン＋ファミリー）で 5 名。", links:[]},
+    {n:"尖沙咀 プロムナード", from:"MTR 約 10 分（旺角→尖沙咀）／車 10 分", kind:"cand", tag:"夜景を見るなら", m:"ビクトリアハーバーの夜景。行くなら廟街より先に（デッキは 23:00 まで）", ll:[22.29942,114.18565], q:"Tsim Sha Tsui Promenade",
+     d:"九龍側の海沿い遊歩道。対岸の香港島の夜景が一望でき、毎晩 20:00 から 13 分間「シンフォニー・オブ・ライツ」（無料）。9/19 は到着が 21 時なのでショーは間に合わないが夜景だけでも◎。旺角から MTR で約 10 分。行く場合は 21:30 ホテル発 → 22:00 プロムナード → 余裕があればスターフェリー往復（最終 23:30・片道 6 分・約 HK$5）→ MTR で油麻地へ戻って廟街で夕食。",
+     food:[{n:"妹記大排檔",m:"金馬倫道 5 号 太興廣場 3F・11:30〜23:30。屋内型の大排檔。脆皮炸豬手・黑椒薯仔牛柳粒・蠔仔粥。1 人 HK$100〜200。廟街に戻らずここで夕食にする場合の本命（22:30 までに入店）"},{n:"1瓏點心",m:"金馬倫道 34-36 号・8:00〜深夜 2:00。QR 注文で点心 1 個から。小籠包 HK$10／蝦餃 HK$12"},{n:"打冷鎮小菜",m:"麼地道 67 号 半島中心 地下・6:00〜深夜 2:00。潮州の鹵水拼盤・粥。1 人 HK$50〜100。プロムナードから徒歩 5 分で最寄り"},{n:"香香宮煮（金巴利道店）",m:"12:00〜深夜 2:00。港式火鍋・手打ち団子。1 人 HK$300〜450"}],
+     links:[{t:"シンフォニー・オブ・ライツ鑑賞スポットナビ（WBF）",u:"https://www.wbf.co.jp/hongkong/kanko/symphony/"},{t:"尖沙咀プロムナード（Noel's Travels）",u:"https://noelstravels.com/tsimshatsuipromenade/"},{t:"アベニュー・オブ・スターズ徹底ガイド（香港グルメ図鑑）",u:"https://sakeinvest.com/hongkong-avenueofstars/"}]},
     {n:"廟街（テンプルストリート）夜市", from:"徒歩 15 分（MTR なら旺角→油麻地 1 駅）", kind:"fix", tag:"9/19 夜", m:"ホテルから徒歩約 15 分。屋台・海鮮・占い", ll:[22.30640,114.16997], q:"Temple Street Night Market, Hong Kong",
-     d:"油麻地〜佐敦に延びる香港いちばんディープな夜市。天后廟を中心に屋台・海鮮の大排檔・占い・雑貨が並び、夜 21 時頃が最も賑わう。予約不要で 5 名でも入りやすい。MTR 油麻地駅 C 出口。",
+     d:"油麻地〜佐敦に延びる香港いちばんディープな夜市。天后廟を中心に屋台・海鮮の大排檔・占い・雑貨が並び、夜 21 時頃が最も賑わう。予約不要で 5 名でも入りやすい。MTR 油麻地駅 C 出口。食事のピークは 17 時〜深夜 1 時なので、プロムナードに寄ってからでも間に合う。海鮮は時価なので注文前に値段確認。",
+     food:[{n:"興記煲仔飯",m:"廟街の煲仔飯（土鍋ご飯）の代名詞。臘味・鶏など HK$60〜80。廟街に数店舗"},{n:"四季煲仔飯",m:"興記と並ぶ二大煲仔飯。おこげがしっかり"},{n:"廟街香辣蟹",m:"香辣蟹（ピリ辛カニ）の有名店。常に満席・数店舗あり。時価なので先に値段確認"},{n:"得記大排檔／榮發大排檔",m:"昔ながらの海鮮大排檔。椒鹽鮮魷（イカの塩胡椒揚げ）HK$80 前後。5 名で海鮮数皿＋煲仔飯をシェアが定番"}],
      links:[{t:"香港人直伝！廟街の正しい歩き方（トラベルjp）",u:"https://www.travel.co.jp/guide/article/6988/"},{t:"廟街夜市 徹底解説（Traveloka）",u:"https://www.traveloka.com/ja-jp/explore/culinary/templestreet_nightmarket/580871"},{t:"廟街完全ガイド・新屋台エリア（香港ウンチク話）",u:"https://ameblo.jp/hongkongunchikublog/entry-12930208764.html"}]},
     {n:"女人街（通菜街）", from:"徒歩 3 分", kind:"opt", m:"ホテルから徒歩 3 分。夜市・雑貨", ll:[22.31752,114.17093], q:"Ladies Market, Tung Choi Street, Mong Kok",
      d:"旺角駅 E2 出口すぐの露店街。13〜23 時頃、土産・バッグ・雑貨の露店が約 1km 続く。値切り前提。すぐ隣に金魚街・スニーカー街もあり、ホテルから 3 分なので空き時間にふらっと。",
      links:[{t:"女人街の楽しみ方と注意点（All About）",u:"https://allabout.co.jp/gm/gc/474905/"},{t:"女人街への行き方と食べ歩き（香港グルメ図鑑）",u:"https://sakeinvest.com/hongkong-ladies-market/"},{t:"女人街 おすすめ土産と最新価格（在住者ブログ）",u:"https://ameblo.jp/erihktabearuki/entry-12959904013.html"}]},
-    {n:"尖沙咀 プロムナード", from:"MTR 約 10 分（旺角→尖沙咀）／車 10 分", kind:"opt", m:"ビクトリアハーバーの夜景。MTR で 2 駅", ll:[22.29942,114.18565], q:"Tsim Sha Tsui Promenade",
-     d:"九龍側の海沿い遊歩道。対岸の香港島の夜景が一望でき、毎晩 20:00 から 13 分間「シンフォニー・オブ・ライツ」（無料）。9/19 は到着が 21 時なのでショーは間に合わないが夜景だけでも◎。旺角から MTR で約 10 分。",
-     links:[{t:"シンフォニー・オブ・ライツ鑑賞スポットナビ（WBF）",u:"https://www.wbf.co.jp/hongkong/kanko/symphony/"},{t:"尖沙咀プロムナード（Noel's Travels）",u:"https://noelstravels.com/tsimshatsuipromenade/"},{t:"アベニュー・オブ・スターズ徹底ガイド（香港グルメ図鑑）",u:"https://sakeinvest.com/hongkong-avenueofstars/"}]},
     {n:"香港国際空港", from:"A21 バス 約 50 分／車 35 分", far:true, kind:"air", tag:"9/20 14:30", m:"出発 16:30。2 時間前に到着", ll:[22.31260,113.91730], q:"Hong Kong International Airport",
      d:"旺角からは A21 バス（約 50 分・約 HK$35）か、MTR で九龍駅へ出てエアポートエクスプレス（約 20 分）。香港エクスプレスは LCC なので手荷物ルールを事前に確認。", links:[]},
   ],
@@ -473,7 +482,7 @@ Object.keys(SPOTS).forEach(city => {
     const hasDetail = s.d || (s.links && s.links.length);
     li.innerHTML = `<span class="no ${s.kind}">${label}</span><span class="n">${s.n}${s.tag?`<span class="tag ${s.kind==="fix"||s.kind==="stay"?"fix":""}">${s.tag}</span>`:""}</span><span class="m">${s.m}</span>${s.from?`<span class="fr">${fromText(s)}</span>`:""}<a class="gm" href="${gmaps(s.q)}" target="_blank" rel="noopener">地図</a>`
       + (hasDetail ? `<button type="button" class="tg" aria-expanded="false" aria-label="詳細を開閉"><span class="chev"></span></button>
-      <div class="detail" hidden>${s.d?`<p>${s.d}</p>`:""}${s.links&&s.links.length?`<ul class="links">${s.links.map(l=>`<li><a href="${l.u}" target="_blank" rel="noopener">${l.t} ↗</a></li>`).join("")}</ul>`:""}<button type="button" class="tomap">地図で位置を見る</button></div>` : "");
+      <div class="detail" hidden>${s.d?`<p>${s.d}</p>`:""}${s.food&&s.food.length?`<div class="food"><span class="fh">ごはんメモ</span><ul>${s.food.map(f=>`<li><b>${f.n}</b><span>${f.m}</span></li>`).join("")}</ul></div>`:""}${s.links&&s.links.length?`<ul class="links">${s.links.map(l=>`<li><a href="${l.u}" target="_blank" rel="noopener">${l.t} ↗</a></li>`).join("")}</ul>`:""}<button type="button" class="tomap">地図で位置を見る</button></div>` : "");
     const focus = () => {
       document.getElementById("map-" + city).scrollIntoView({behavior:"smooth", block:"center"});
       map.flyTo(s.ll, Math.max(map.getZoom(), 15), {duration:.8});
