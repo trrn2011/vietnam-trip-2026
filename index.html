@@ -115,13 +115,27 @@ section.city{margin-top:28px;padding-top:8px}
 .spots{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
 .spot{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:2px 10px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 10px 10px 12px;cursor:pointer}
 .spot:hover,.spot:focus-visible{border-color:var(--accent);outline:none}
-.spot .no{grid-row:1/3;width:28px;height:28px;border-radius:50%;color:#fff;font:700 12px/28px "DM Mono",monospace;text-align:center}
+.spot .no{grid-row:1/4;width:28px;height:28px;border-radius:50%;color:#fff;font:700 12px/28px "DM Mono",monospace;text-align:center}
 .spot .no.stay{background:#0E7C86}.spot .no.fix{background:#2F855A}.spot .no.cand{background:#B8862B}.spot .no.opt{background:#8A95A5}.spot .no.air{background:#4A5568}
 .spot .n{font-weight:700;font-size:15px}
 .spot .n .tag{display:inline-block;font-size:10.5px;font-weight:500;letter-spacing:.06em;color:var(--gold);background:var(--gold-soft);border-radius:999px;padding:1px 8px;margin-left:8px;vertical-align:2px;font-family:"DM Mono",monospace}
 .spot .n .tag.fix{color:var(--accent);background:var(--accent-soft)}
 .spot .m{grid-column:2;font-size:12.5px;color:var(--ink-2);line-height:1.5}
-.spot a{grid-column:3;grid-row:1/3;display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:10px;background:var(--accent-soft);color:var(--accent);text-decoration:none;font-size:12px;font-weight:700;padding:0 10px}
+.spot .fr{grid-column:2;font-size:12px;color:var(--accent);font-weight:700;margin-top:2px}
+.spot .fr::before{content:"⌂ ";color:var(--muted);font-weight:400}
+.leaflet-popup-content .pf{display:block;color:#0E7C86;font-weight:700;font-size:12.5px;margin:-4px 0 8px}
+.spot{grid-template-columns:34px minmax(0,1fr) auto auto}
+.spot a.gm{grid-column:3;grid-row:1/4;display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;border-radius:10px;background:var(--accent-soft);color:var(--accent);text-decoration:none;font-size:12px;font-weight:700;padding:0 10px}
+.spot .tg{grid-column:4;grid-row:1/4;width:36px;min-height:44px;border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.spot .chev{width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .2s}
+.spot.open .chev{transform:rotate(-135deg);border-color:var(--accent)}
+.spot .detail{grid-column:1/-1;border-top:1px dashed var(--line);margin-top:8px;padding-top:10px;cursor:default}
+.spot .detail p{margin:0 0 10px;font-size:14px;line-height:1.7;color:var(--ink)}
+.spot .links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.spot .links a{display:flex;align-items:center;min-height:40px;padding:6px 12px;border-radius:8px;background:var(--bg);border:1px solid var(--line);color:var(--accent);text-decoration:none;font-size:13.5px;font-weight:500;line-height:1.4}
+.spot .tomap{margin-top:10px;font:inherit;font-size:12.5px;font-weight:700;color:var(--ink-2);background:transparent;border:1px solid var(--line);border-radius:8px;padding:7px 12px;min-height:36px;cursor:pointer}
+.leaflet-popup-content .pa2{margin-left:6px;background:#F5EBD3;color:#8A6520}
+@media (prefers-reduced-motion:reduce){.spot .chev{transition:none}}
 
 /* info cards */
 .card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);margin-top:14px}
@@ -338,7 +352,7 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
   </div>
 </section>
 
-<footer>出典: works/private/ベトナム旅行2026.md（2026-09-18 時点）。地図は OpenStreetMap（© OpenStreetMap contributors）。ピンやリストをタップすると詳細と Google マップへのリンクが出ます。</footer>
+<footer>出典: works/private/ベトナム旅行2026.md（2026-09-18 時点）。地図は OpenStreetMap（© OpenStreetMap contributors）。ピンをタップすると Google マップと紹介記事へのリンク、リストの行をタップすると詳細と日本語記事の一覧が開きます。記事は 2026-09-19 時点の検索結果。</footer>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" referrerpolicy="no-referrer"></script>
@@ -346,31 +360,68 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
 // ---- スポットデータ（kind: stay=宿 / fix=確定 / cand=候補 / opt=任意 / air=空港）----
 const SPOTS = {
   hk: [
-    {n:"Hotel 108, Hong Kong", kind:"stay", tag:"9/19 泊", m:"108 Soy Street, Mong Kok ・ 旺角駅すぐ", ll:[22.31692,114.17277], q:"Hotel 108, 108 Soy Street, Mong Kok, Hong Kong"},
-    {n:"廟街（テンプルストリート）夜市", kind:"fix", tag:"9/19 夜", m:"ホテルから徒歩約 15 分。屋台・海鮮・占い", ll:[22.30640,114.16997], q:"Temple Street Night Market, Hong Kong"},
-    {n:"女人街（通菜街）", kind:"opt", m:"ホテルから徒歩 3 分。夜市・雑貨", ll:[22.31752,114.17093], q:"Ladies Market, Tung Choi Street, Mong Kok"},
-    {n:"尖沙咀 プロムナード", kind:"opt", m:"ビクトリアハーバーの夜景。MTR で 2 駅", ll:[22.29942,114.18565], q:"Tsim Sha Tsui Promenade"},
-    {n:"香港国際空港", far:true, kind:"air", tag:"9/20 14:30", m:"出発 16:30。2 時間前に到着", ll:[22.31260,113.91730], q:"Hong Kong International Airport"},
+    {n:"Hotel 108, Hong Kong", kind:"stay", tag:"9/19 泊", m:"108 Soy Street, Mong Kok ・ 旺角駅すぐ", ll:[22.31692,114.17277], q:"Hotel 108, 108 Soy Street, Mong Kok, Hong Kong",
+     d:"旺角の中心・豉油街にある小型ホテル。MTR 旺角駅から徒歩数分で、女人街・廟街・空港バス A21 の停留所が徒歩圏。9/19 は 2 部屋（クイーン＋ファミリー）で 5 名。", links:[]},
+    {n:"廟街（テンプルストリート）夜市", from:"徒歩 15 分（MTR なら旺角→油麻地 1 駅）", kind:"fix", tag:"9/19 夜", m:"ホテルから徒歩約 15 分。屋台・海鮮・占い", ll:[22.30640,114.16997], q:"Temple Street Night Market, Hong Kong",
+     d:"油麻地〜佐敦に延びる香港いちばんディープな夜市。天后廟を中心に屋台・海鮮の大排檔・占い・雑貨が並び、夜 21 時頃が最も賑わう。予約不要で 5 名でも入りやすい。MTR 油麻地駅 C 出口。",
+     links:[{t:"香港人直伝！廟街の正しい歩き方（トラベルjp）",u:"https://www.travel.co.jp/guide/article/6988/"},{t:"廟街夜市 徹底解説（Traveloka）",u:"https://www.traveloka.com/ja-jp/explore/culinary/templestreet_nightmarket/580871"},{t:"廟街完全ガイド・新屋台エリア（香港ウンチク話）",u:"https://ameblo.jp/hongkongunchikublog/entry-12930208764.html"}]},
+    {n:"女人街（通菜街）", from:"徒歩 3 分", kind:"opt", m:"ホテルから徒歩 3 分。夜市・雑貨", ll:[22.31752,114.17093], q:"Ladies Market, Tung Choi Street, Mong Kok",
+     d:"旺角駅 E2 出口すぐの露店街。13〜23 時頃、土産・バッグ・雑貨の露店が約 1km 続く。値切り前提。すぐ隣に金魚街・スニーカー街もあり、ホテルから 3 分なので空き時間にふらっと。",
+     links:[{t:"女人街の楽しみ方と注意点（All About）",u:"https://allabout.co.jp/gm/gc/474905/"},{t:"女人街への行き方と食べ歩き（香港グルメ図鑑）",u:"https://sakeinvest.com/hongkong-ladies-market/"},{t:"女人街 おすすめ土産と最新価格（在住者ブログ）",u:"https://ameblo.jp/erihktabearuki/entry-12959904013.html"}]},
+    {n:"尖沙咀 プロムナード", from:"MTR 約 10 分（旺角→尖沙咀）／車 10 分", kind:"opt", m:"ビクトリアハーバーの夜景。MTR で 2 駅", ll:[22.29942,114.18565], q:"Tsim Sha Tsui Promenade",
+     d:"九龍側の海沿い遊歩道。対岸の香港島の夜景が一望でき、毎晩 20:00 から 13 分間「シンフォニー・オブ・ライツ」（無料）。9/19 は到着が 21 時なのでショーは間に合わないが夜景だけでも◎。旺角から MTR で約 10 分。",
+     links:[{t:"シンフォニー・オブ・ライツ鑑賞スポットナビ（WBF）",u:"https://www.wbf.co.jp/hongkong/kanko/symphony/"},{t:"尖沙咀プロムナード（Noel's Travels）",u:"https://noelstravels.com/tsimshatsuipromenade/"},{t:"アベニュー・オブ・スターズ徹底ガイド（香港グルメ図鑑）",u:"https://sakeinvest.com/hongkong-avenueofstars/"}]},
+    {n:"香港国際空港", from:"A21 バス 約 50 分／車 35 分", far:true, kind:"air", tag:"9/20 14:30", m:"出発 16:30。2 時間前に到着", ll:[22.31260,113.91730], q:"Hong Kong International Airport",
+     d:"旺角からは A21 バス（約 50 分・約 HK$35）か、MTR で九龍駅へ出てエアポートエクスプレス（約 20 分）。香港エクスプレスは LCC なので手荷物ルールを事前に確認。", links:[]},
   ],
   dn: [
-    {n:"Airbnb（ミーケービーチ）", kind:"stay", tag:"9/20–22 泊", m:"19 An Cư 2, An Hải Bắc, Sơn Trà", ll:[16.07722,108.23973], q:"19 An Cư 2, An Hải Bắc, Sơn Trà, Đà Nẵng"},
-    {n:"アントゥン（An Thượng）グルメ街", kind:"fix", tag:"9/20 夜", m:"宿から車 8 分。海鮮・ベトナム料理・バー", ll:[16.04953,108.24439], q:"An Thuong Street, Da Nang"},
-    {n:"ドラゴン橋（Cầu Rồng）", kind:"fix", tag:"9/20 21:00", m:"宿から車 10 分。ハン川沿い・東岸のたもとが見やすい", ll:[16.06117,108.22790], q:"Dragon Bridge, Da Nang"},
-    {n:"ミーケービーチ", kind:"opt", m:"宿の目の前。朝夕の散歩・海水浴", ll:[16.07563,108.24688], q:"My Khe Beach, Da Nang"},
-    {n:"ホイアン旧市街", far:true, kind:"fix", tag:"9/21 夜", m:"宿から南へ約 30km・車で 45 分。ランタンと川沿いの夜景", ll:[15.87795,108.32399], q:"Hoi An Ancient Town"},
-    {n:"五行山（マーブルマウンテン）", kind:"cand", tag:"候補①", m:"ホイアン方面の途中。洞窟と展望台、2 時間", ll:[16.00370,108.26330], q:"Marble Mountains, Da Nang"},
-    {n:"クラウンプラザ カジノ（Crowne International Club）", kind:"fix", tag:"確定", m:"ミーケー南・五行山手前、宿から車 15 分。24 時間・予約不要・パスポート原本必須（外国人のみ）。ライブ卓はバカラ 8／BJ 2／大小 2／ルーレット 1、ミニマム $10〜。スロット約 100 台・無料シャトルあり", ll:[16.02732,108.25690], q:"Crowne Plaza Danang"},
-    {n:"ダナン国際空港", far:true, kind:"air", tag:"9/22 07:00", m:"出発 08:55。宿から車 10〜15 分", ll:[16.04258,108.19716], q:"Da Nang International Airport"},
+    {n:"Airbnb（ミーケービーチ）", kind:"stay", tag:"9/20–22 泊", m:"19 An Cư 2, An Hải Bắc, Sơn Trà", ll:[16.07722,108.23973], q:"19 An Cư 2, An Hải Bắc, Sơn Trà, Đà Nẵng",
+     d:"ソンチャ区 An Hải Bắc、ミーケービーチまで徒歩数分の住宅街。空港まで車 10〜15 分、ドラゴン橋まで 10 分。Airbnb はパスポートでの宿泊者登録が必要（5 名分）。", links:[]},
+    {n:"アントゥン（An Thượng）グルメ街", from:"車 8 分", kind:"fix", tag:"9/20 夜", m:"宿から車 8 分。海鮮・ベトナム料理・バー", ll:[16.04953,108.24439], q:"An Thuong Street, Da Nang",
+     d:"ミーケービーチ南側、在住外国人と旅行者が集まる「眠らない通り」。ベトナム料理・海鮮・多国籍料理・バーが密集し、2022 年に観光通りとして整備。5 名で夕食後、そのままドラゴン橋へ移動しやすい。",
+     links:[{t:"アントゥン観光通りを徹底解説（Danang Holic）",u:"https://danang-holic.com/sightseeing/an-thuong-tourist-streets/"},{t:"アントゥンのおすすめレストラン・カフェ・バー 12 選（Danang Holic）",u:"https://danang-holic.com/gourmet/antun-restaurant-cafe-top13/"},{t:"アントゥンエリアでのおすすめの過ごし方（ダナンスタイル）",u:"https://danang.style/tourism/913"}]},
+    {n:"ドラゴン橋（Cầu Rồng）", from:"車 10 分", kind:"fix", tag:"9/20 21:00", m:"宿から車 10 分。ハン川沿い・東岸のたもとが見やすい", ll:[16.06117,108.22790], q:"Dragon Bridge, Da Nang",
+     d:"ハン川に架かる龍の形の橋。金・土・日の 21:00 から約 10 分、龍の頭が火と水を吐くショー。20:45 頃から橋上は交通規制。橋全体を見るなら川沿い（Trần Hưng Đạo 通り側）、迫力重視なら頭側の東岸たもと。前方は水しぶきで濡れる。",
+     links:[{t:"ドラゴンブリッジ 火と水のショー スケジュール＆観覧ガイド（ベトナム航空）",u:"https://www.vietnamairlines.com/jp/ja/useful-information/travel-guide/dragon-bridge-danang"},{t:"ドラゴンブリッジ完全ガイド 2026（Go! Da Nang Trip）",u:"https://5vietnamtrip.com/danang-dragon-bridge/"},{t:"ロン橋のファイアーショー（Danang Holic）",u:"https://danang-holic.com/sightseeing/dragon-bridge-fire-show/"}]},
+    {n:"ミーケービーチ", from:"徒歩 5 分", kind:"opt", m:"宿の目の前。朝夕の散歩・海水浴", ll:[16.07563,108.24688], q:"My Khe Beach, Da Nang",
+     d:"約 4km 続く白砂のビーチ。フォーブス「世界の美しいビーチ」に選ばれたことで有名。遊歩道があり朝夕の散歩に最適、デッキチェアやパラセーリングもあり。9 月は雨季の入り口なので海に入るなら午前中が無難。",
+     links:[{t:"ミーケービーチ完全ガイド（ベトナム航空）",u:"https://www.vietnamairlines.com/jp/ja/plan-book/travel/travel-guide/my-khe-beach"},{t:"ミーケビーチ完全ガイド・周辺レストラン（Danang Holic）",u:"https://danang-holic.com/sightseeing/my-khe-beach-activities-restaurant-and-bar/"},{t:"ミーケビーチの歩き方（たびこふれ）",u:"https://tabicoffret.com/article/82857/"}]},
+    {n:"ホイアン旧市街", from:"車 45 分", far:true, kind:"fix", tag:"9/21 夜", m:"宿から南へ約 30km・車で 45 分。ランタンと川沿いの夜景", ll:[15.87795,108.32399], q:"Hoi An Ancient Town",
+     d:"世界遺産の港町。17:30 頃からランタンが灯り、トゥボン川沿いと来遠橋（日本橋）周辺が幻想的に。灯籠流し（1 個 1〜2 万ドン）、アンホイ島のナイトマーケット、バクダン通りの屋台。旧市街入場券は現地購入。夜は混むので貴重品は前に。",
+     links:[{t:"ホイアン観光完全ガイド 2026・歩き方モデルコース（Danang Holic）",u:"https://danang-holic.com/tips/hoian-walking-guide/"},{t:"ホイアン観光ガイド・入場券・ランタン・行き方（トリファ）",u:"https://www.trifa.co/ja/column/preparation-tips-travel/hoian-travel"},{t:"ホイアン観光完全ガイド 2026 年版（VietVoice）",u:"https://vietvoice.jp/hoi-an/"}]},
+    {n:"五行山（マーブルマウンテン）", from:"車 20 分", kind:"cand", tag:"候補①", m:"ホイアン方面の途中。洞窟と展望台、2 時間", ll:[16.00370,108.26330], q:"Marble Mountains, Da Nang",
+     d:"大理石の 5 つの山からなる霊山。中心のトゥイーソン（水山）に洞窟寺院と展望台があり、所要 1.5〜2 時間。入場 4 万ドン、エレベーター別途 1.5 万ドン、7:00〜17:00。宿から車 20 分、ホイアンへの通り道なので 9/21 の昼に組み込みやすい。階段が多いので歩きやすい靴で。",
+     links:[{t:"五行山 料金・行き方・見どころ完全ガイド 2026（Danang Holic）",u:"https://danang-holic.com/sightseeing/danang-marble-moutain/"},{t:"五行山パーフェクトガイド（TNK トラベル）",u:"https://www.tnkjapan.com/blog/2020/03/19/marble_mountain/"},{t:"五行山 完全ガイド・所要時間（Poste）",u:"https://poste-vn.com/lifetips/marble-mountain-574"}]},
+    {n:"クラウンプラザ カジノ（Crowne International Club）", from:"車 15 分", kind:"fix", tag:"確定", m:"ミーケー南・五行山手前、宿から車 15 分。24 時間・予約不要・パスポート原本必須（外国人のみ）。ライブ卓はバカラ 8／BJ 2／大小 2／ルーレット 1、ミニマム $10〜。スロット約 100 台・無料シャトルあり", ll:[16.02732,108.25690], q:"Crowne Plaza Danang",
+     d:"クラウンプラザ ダナンに併設のカジノ。入口左がバカラ、右がブラックジャックとスロット。客の多くは中国系でスタッフは英語・中国語対応。ドレスコードはスマートカジュアル（タンクトップ・短パン不可）。9/20 ドラゴン橋のあと、または 9/21 の昼に。",
+     links:[{t:"クラウンインターナショナルクラブへ行こう！（WALKING DANANG）",u:"https://walking-danang.net/experiences/casino/crown_international_club/"},{t:"ダナンのカジノおすすめ 5 選 2026（Poste）",u:"https://poste-vn.com/lifetips/danang-casino-268"},{t:"カジノ体験記 ダナン クラウンカジノ（バカラ愛好会）",u:"https://baccaraccio.hatenadiary.jp/entry/2024/01/07/204135"}]},
+    {n:"ダナン国際空港", from:"車 10〜15 分", far:true, kind:"air", tag:"9/22 07:00", m:"出発 08:55。宿から車 10〜15 分", ll:[16.04258,108.19716], q:"Da Nang International Airport",
+     d:"市街地のすぐ西。国内線ターミナル（T1）から 08:55 発ベトジェット。LCC なので 1 時間半前には到着したい。早朝なので送迎車を前夜に確定しておく。", links:[]},
   ],
   hcm: [
-    {n:"The Solith Hotel Managed by Nicecy", kind:"stay", tag:"9/22 泊", m:"8B-8C Lê Thánh Tôn, District 1", ll:[10.78130,106.70620], q:"The Solith Hotel Managed by Nicecy, 8B Lê Thánh Tôn, District 1, Ho Chi Minh City"},
-    {n:"レタントン 日本街", kind:"fix", tag:"9/22 夜", m:"ホテルから 370m。日本食・居酒屋が集まる路地", ll:[10.77922,106.70466], q:"Lê Thánh Tôn Japanese Town, Ho Chi Minh City"},
-    {n:"ドンコイ通り", kind:"opt", m:"ホテルから 0.6km。カフェ・雑貨・ホテル街", ll:[10.77816,106.70189], q:"Dong Khoi Street, Ho Chi Minh City"},
-    {n:"サイゴン オペラハウス", kind:"opt", m:"ホテルから 710m。夜はライトアップ", ll:[10.77674,106.70325], q:"Saigon Opera House"},
-    {n:"サイゴン大教会・中央郵便局", kind:"opt", m:"ホテルから徒歩 10 分。定番の写真スポット", ll:[10.77996,106.69999], q:"Saigon Central Post Office"},
-    {n:"ベンタイン市場", kind:"opt", m:"ホテルから 1.3km。市場は予約不要。周辺にブイビエン通り・統一会堂", ll:[10.77253,106.69804], q:"Ben Thanh Market"},
-    {n:"メコン川ツアー（ミトー）", far:true, kind:"opt", tag:"任意・要予約", m:"南西へ車 1.5 時間。行くなら 9/23 午前", ll:[10.36277,106.35909], q:"My Tho, Tien Giang"},
-    {n:"タンソンニャット国際空港", far:true, kind:"air", tag:"9/23 21:00", m:"出発 23:35。市内から車 30 分", ll:[10.81798,106.65626], q:"Tan Son Nhat International Airport"},
+    {n:"The Solith Hotel Managed by Nicecy", kind:"stay", tag:"9/22 泊", m:"8B-8C Lê Thánh Tôn, District 1", ll:[10.78130,106.70620], q:"The Solith Hotel Managed by Nicecy, 8B Lê Thánh Tôn, District 1, Ho Chi Minh City",
+     d:"1 区レタントン通り東端の 4 つ星。2019 年開業・2025 年改装、屋外プール・朝食ビュッフェ（6:30〜9:30）。日本街まで徒歩 5 分、ドンコイ・オペラハウスも徒歩圏。9/23 はレイトチェックアウト or 荷物預けを依頼。",
+     links:[{t:"Booking.com",u:"https://www.booking.com/hotel/vn/the-solith.ja.html"},{t:"Trip.com 詳細・口コミ",u:"https://www.trip.com/hotels/ho-chi-minh-city-hotel-detail-38938411/the-solith-hotel-managed-by-nicecy/"}]},
+    {n:"レタントン 日本街", from:"徒歩 5 分", kind:"fix", tag:"9/22 夜", m:"ホテルから 370m。日本食・居酒屋が集まる路地", ll:[10.77922,106.70466], q:"Lê Thánh Tôn Japanese Town, Ho Chi Minh City",
+     d:"レタントン通りとタイバンルン通りの間の路地（ヘム 15B など）に日本食レストラン・居酒屋・カラオケ・日本語対応マッサージが密集。ホテルから徒歩 5 分。閉店・移転が多いので行く店は Google マップで最新確認を。",
+     links:[{t:"レタントン完全ガイド・現地の歩き方 2026（Poste）",u:"https://poste-vn.com/lifetips/retanton-512"},{t:"レタントン通り・日本人街の歩き方（VietVoice）",u:"https://vietvoice.jp/le-thanh-ton/"},{t:"日本人街レタントン通りの観光（ホーチミン観光情報ガイド）",u:"https://www.hcm-cityguide.com/areas/lethanhton"}]},
+    {n:"ドンコイ通り", from:"徒歩 8 分", kind:"opt", m:"ホテルから 0.6km。カフェ・雑貨・ホテル街", ll:[10.77816,106.70189], q:"Dong Khoi Street, Ho Chi Minh City",
+     d:"サイゴン川から聖母マリア教会まで約 1km のメインストリート。「サイゴンの銀座」と呼ばれ、コロニアル建築・高級ホテル・雑貨店・カフェ・マッサージが並ぶ。オペラハウス・大教会・郵便局が通り沿いなので、これ 1 本で観光の中心を歩ける。",
+     links:[{t:"ドンコイ通り／エリアの歩き方（タビスパ）",u:"https://tabispavn.com/dongkhoistarea/"},{t:"ドンコイ通り周辺でしたいこと 7 選（RETRIP）",u:"https://rtrp.jp/articles/16455/"},{t:"ドンコイ通り 観光情報（JTB）",u:"https://www.jtb.co.jp/kaigai_guide/asia/socialist_republic_of_viet_nam/SGN/110014/"}]},
+    {n:"サイゴン オペラハウス", from:"徒歩 10 分", kind:"opt", m:"ホテルから 710m。夜はライトアップ", ll:[10.77674,106.70325], q:"Saigon Opera House",
+     d:"1900 年完成、パリのオペラ座を模したフランス統治時代の劇場（市民劇場）。ドンコイ通りの中心にあり、夜はライトアップ。内部はアクロバット公演「アオショー」（要予約）などの観劇時のみ入場可。外観と広場だけなら 10 分。",
+     links:[{t:"サイゴンオペラハウス鑑賞のてびき（トラベルjp）",u:"https://www.travel.co.jp/guide/article/38355/"},{t:"市民劇場・サイゴンオペラハウス（ホーチミン観光情報ガイド）",u:"https://www.hcm-cityguide.com/c/sights/s/historial-caltual/p/nha-hat-thanh-pho"},{t:"アオショー（ホーチミン観光情報ガイド）",u:"https://www.hcm-cityguide.com/c/sights/s/entertainments/p/a-o-show"}]},
+    {n:"サイゴン大教会・中央郵便局", from:"徒歩 12 分", kind:"opt", m:"ホテルから徒歩 10 分。定番の写真スポット", ll:[10.77996,106.69999], q:"Saigon Central Post Office",
+     d:"赤レンガの聖母マリア教会（19 世紀末・ネオゴシック）と、向かいのサイゴン中央郵便局（エッフェルが関与・オルセー駅がモデル）。教会は長期修復中で外観のみ、郵便局は内部見学可で土産も買える。近くに統一会堂・戦争証跡博物館。",
+     links:[{t:"サイゴン大教会の歴史と見どころ（Poste）",u:"https://poste-vn.com/lifetips/saigon-notre-dame-cathedral-528"},{t:"サイゴン中央郵便局の見どころ（iconicJob）",u:"https://iconicjob.jp/blog/saigon_central_postoffice"},{t:"サイゴン大教会は修復中（旅するアルル）",u:"https://aruru.co.jp/trip/hochiminh-saigon-chapel/"}]},
+    {n:"ベンタイン市場", from:"徒歩 20 分／Grab 8 分", kind:"opt", m:"ホテルから 1.3km。市場は予約不要。周辺にブイビエン通り・統一会堂", ll:[10.77253,106.69804], q:"Ben Thanh Market",
+     d:"ホーチミン最大の屋内市場。コーヒー・雑貨・アオザイ・乾物・食堂まで迷路のように並ぶ。値段は交渉制、スリが多いのでバッグは前に。夕方からは市場の周りにナイトマーケットの屋台。ホテルから徒歩 20 分か Grab で 10 分。",
+     links:[{t:"ベンタイン市場完全ガイド・値段交渉・行き方 2026（Poste）",u:"https://poste-vn.com/lifetips/vietnam-benthanh-58"},{t:"ベンタイン市場の安全な楽しみ方ガイド（そらいろトラベル）",u:"https://sorairo.blog/ho-chi-minh-ben-thanh-market-guide/"},{t:"ベンタイン市場 攻略ガイド（KKday）",u:"https://www.kkday.com/ja/blog/95284/asia-vietnam-ho-chi-minh-ben-thanh-market"}]},
+    {n:"メコン川ツアー（ミトー）", from:"車 1.5〜2 時間（ツアー送迎）", far:true, kind:"opt", tag:"任意・要予約", m:"南西へ車 1.5 時間。行くなら 9/23 午前", ll:[10.36277,106.35909], q:"My Tho, Tien Giang",
+     d:"ミトーからボートで中洲の島へ渡り、手漕ぎ舟のジャングルクルーズ・ココナッツキャンディー工房・果樹園・象耳魚の昼食を回る定番ツアー。日本語ガイド付きの半日〜1 日ツアーがホテル送迎付きで予約できる。9/23 は夜 21 時に空港なので半日ツアーが現実的。",
+     links:[{t:"メコンデルタ日帰りツアー（TNK トラベル）",u:"https://www.tnkjapan.com/tours/detail/4"},{t:"ミトー メコン川クルーズ 午後半日（Pandabus）",u:"https://www.pandabus.com/vietnam/-ar-SGN/-tr-SGN1S05N"},{t:"メコン川クルーズに自力で行く方法（KKday）",u:"https://www.kkday.com/ja/blog/95833/asia-vietnam-ho-chi-minh-mekong-river-cruise"}]},
+    {n:"タンソンニャット国際空港", from:"車 30 分", far:true, kind:"air", tag:"9/23 21:00", m:"出発 23:35。市内から車 30 分", ll:[10.81798,106.65626], q:"Tan Son Nhat International Airport",
+     d:"1 区から車で 30 分前後（夜は渋滞が少ない）。国際線ターミナル T2。ベトジェットは LCC で出国審査に時間がかかることがあるので 2 時間半前を目安に。", links:[]},
   ],
 };
 const KIND_LABEL = {stay:"宿", fix:"確定", cand:"候補", opt:"任意", air:"空港"};
@@ -388,24 +439,40 @@ Object.keys(SPOTS).forEach(city => {
   const group = L.featureGroup().addTo(map);
   const list = document.querySelector(`.spots[data-city="${city}"]`);
   const markers = [];
+  const stay = SPOTS[city].find(x => x.kind === "stay");
+  const km = (a, b) => { const R=6371, dLat=(b[0]-a[0])*Math.PI/180, dLon=(b[1]-a[1])*Math.PI/180, la1=a[0]*Math.PI/180, la2=b[0]*Math.PI/180; const h=Math.sin(dLat/2)**2+Math.cos(la1)*Math.cos(la2)*Math.sin(dLon/2)**2; return 2*R*Math.asin(Math.sqrt(h)); };
+  const fmtKm = d => d < 1 ? `${Math.round(d*100)*10} m` : `${d < 10 ? d.toFixed(1) : Math.round(d)} km`;
+  const fromText = s => s.from ? `宿から ${s.from} ・ 直線 ${fmtKm(km(stay.ll, s.ll))}` : "";
   let n = 0;
   SPOTS[city].forEach((s, i) => {
     const label = s.kind === "stay" ? "★" : String(++n);
     const mk = L.marker(s.ll, {icon: pinIcon(s.kind, label), title: s.n}).addTo(group);
-    mk.bindPopup(`<span class="pn">${label==="★"?"★ ":label+". "}${s.n}</span><span class="pm">${s.tag?`<b>${s.tag}</b> ・ `:""}${s.m}</span><a class="pa" href="${gmaps(s.q)}" target="_blank" rel="noopener">Google マップで開く ↗</a>`);
+    mk.bindPopup(`<span class="pn">${label==="★"?"★ ":label+". "}${s.n}</span><span class="pm">${s.tag?`<b>${s.tag}</b> ・ `:""}${s.m}</span>${s.from?`<span class="pf">${fromText(s)}</span>`:""}<a class="pa" href="${gmaps(s.q)}" target="_blank" rel="noopener">Google マップで開く ↗</a>${s.links&&s.links.length?`<a class="pa pa2" href="${s.links[0].u}" target="_blank" rel="noopener">紹介記事 ↗</a>`:""}`);
     mk.bindTooltip(label==="★"?"宿":s.n.replace(/（.*?）/g,""), {permanent:true, direction:"right", offset:[8,-14], className:"lbl"});
     markers.push(mk);
     // list row
     const li = document.createElement("li");
     li.className = "spot"; li.tabIndex = 0;
-    li.innerHTML = `<span class="no ${s.kind}">${label}</span><span class="n">${s.n}${s.tag?`<span class="tag ${s.kind==="fix"||s.kind==="stay"?"fix":""}">${s.tag}</span>`:""}</span><span class="m">${s.m}</span><a href="${gmaps(s.q)}" target="_blank" rel="noopener">地図</a>`;
+    const hasDetail = s.d || (s.links && s.links.length);
+    li.innerHTML = `<span class="no ${s.kind}">${label}</span><span class="n">${s.n}${s.tag?`<span class="tag ${s.kind==="fix"||s.kind==="stay"?"fix":""}">${s.tag}</span>`:""}</span><span class="m">${s.m}</span>${s.from?`<span class="fr">${fromText(s)}</span>`:""}<a class="gm" href="${gmaps(s.q)}" target="_blank" rel="noopener">地図</a>`
+      + (hasDetail ? `<button type="button" class="tg" aria-expanded="false" aria-label="詳細を開閉"><span class="chev"></span></button>
+      <div class="detail" hidden>${s.d?`<p>${s.d}</p>`:""}${s.links&&s.links.length?`<ul class="links">${s.links.map(l=>`<li><a href="${l.u}" target="_blank" rel="noopener">${l.t} ↗</a></li>`).join("")}</ul>`:""}<button type="button" class="tomap">地図で位置を見る</button></div>` : "");
     const focus = () => {
       document.getElementById("map-" + city).scrollIntoView({behavior:"smooth", block:"center"});
       map.flyTo(s.ll, Math.max(map.getZoom(), 15), {duration:.8});
       setTimeout(() => mk.openPopup(), 850);
     };
-    li.addEventListener("click", e => { if (e.target.tagName !== "A") focus(); });
-    li.addEventListener("keydown", e => { if (e.key === "Enter") focus(); });
+    const toggle = () => {
+      const open = li.classList.toggle("open");
+      const btn = li.querySelector(".tg"); if (btn) btn.setAttribute("aria-expanded", String(open));
+      const d = li.querySelector(".detail"); if (d) d.hidden = !open;
+    };
+    li.addEventListener("click", e => {
+      if (e.target.closest("a")) return;
+      if (e.target.closest(".tomap")) { focus(); return; }
+      if (hasDetail) toggle(); else focus();
+    });
+    li.addEventListener("keydown", e => { if (e.key === "Enter" && e.target === li) { hasDetail ? toggle() : focus(); } });
     list.appendChild(li);
   });
   const near = L.featureGroup(markers.filter((m, i) => !SPOTS[city][i].far));
