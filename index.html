@@ -81,6 +81,8 @@ section.city{margin-top:28px;padding-top:8px}
 .mk.cand{background:#B8862B}
 .mk.opt{background:#8A95A5}
 .mk.air{background:#4A5568}
+.mk.guide{background:#7A5AA6;width:24px;height:24px}
+.mk.guide span{font-size:9.5px;letter-spacing:-.03em}
 .leaflet-tooltip.lbl{background:rgba(255,255,255,.92);color:#14213D;border:0;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,.25);font:600 11.5px/1.3 "Zen Kaku Gothic New",sans-serif;padding:3px 7px;white-space:nowrap}
 .leaflet-tooltip.lbl::before{display:none}
 .leaflet-popup-content-wrapper{border-radius:10px;font-family:"Zen Kaku Gothic New",sans-serif;color:#14213D}
@@ -118,7 +120,16 @@ section.city{margin-top:28px;padding-top:8px}
 .spot{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:2px 10px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 10px 10px 12px;cursor:pointer}
 .spot:hover,.spot:focus-visible{border-color:var(--accent);outline:none}
 .spot .no{grid-row:1/4;width:28px;height:28px;border-radius:50%;color:#fff;font:700 12px/28px "DM Mono",monospace;text-align:center}
-.spot .no.stay{background:#0E7C86}.spot .no.fix{background:#2F855A}.spot .no.cand{background:#B8862B}.spot .no.opt{background:#8A95A5}.spot .no.air{background:#4A5568}
+.spot .no.stay{background:#0E7C86}.spot .no.fix{background:#2F855A}.spot .no.cand{background:#B8862B}.spot .no.opt{background:#8A95A5}.spot .no.air{background:#4A5568}.spot .no.guide{background:#7A5AA6;font-size:10.5px}
+details.guide{margin-top:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper);overflow:hidden}
+details.guide summary{list-style:none;cursor:pointer;padding:12px 40px 12px 14px;position:relative;display:flex;flex-direction:column;gap:2px}
+details.guide summary::-webkit-details-marker{display:none}
+details.guide summary::after{content:"";position:absolute;right:16px;top:20px;width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg)}
+details.guide[open] summary::after{transform:rotate(-135deg);top:24px}
+details.guide .gs-t{font-weight:700;font-size:15px;color:#7A5AA6}
+details.guide .gs-s{font-size:12px;color:var(--ink-2);line-height:1.5}
+details.guide .spots{padding:0 10px 10px}
+details.guide .spot{background:var(--bg)}
 .spot .n{font-weight:700;font-size:15px}
 .spot .n .tag{display:inline-block;font-size:10.5px;font-weight:500;letter-spacing:.06em;color:var(--gold);background:var(--gold-soft);border-radius:999px;padding:1px 8px;margin-left:8px;vertical-align:2px;font-family:"DM Mono",monospace}
 .spot .n .tag.fix{color:var(--accent);background:var(--accent-soft)}
@@ -198,7 +209,7 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
 
   <div class="mapbox">
     <div class="mapc" id="map-hk"></div>
-    <div class="mapbar"><span class="lg"><i style="background:#0E7C86"></i>宿</span><span class="lg"><i style="background:#2F855A"></i>確定</span><span class="lg"><i style="background:#B8862B"></i>候補</span><span class="lg"><i style="background:#8A95A5"></i>任意</span><span class="lg"><i style="background:#4A5568"></i>空港</span><button type="button" data-fit="hk">全ピンを表示</button></div>
+    <div class="mapbar"><span class="lg"><i style="background:#0E7C86"></i>宿</span><span class="lg"><i style="background:#2F855A"></i>確定</span><span class="lg"><i style="background:#B8862B"></i>候補</span><span class="lg"><i style="background:#8A95A5"></i>任意</span><span class="lg"><i style="background:#4A5568"></i>空港</span><span class="lg"><i style="background:#7A5AA6"></i>ガイド掲載</span><button type="button" data-fit="hk">全ピンを表示</button></div>
     <div class="stayline">
       <span class="lbl">Stay</span>
       <span class="name">Hotel 108, Hong Kong</span>
@@ -229,6 +240,10 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
   <div class="blk">
     <h3><span class="eyebrow">Spots</span>行く場所</h3>
     <ul class="spots" data-city="hk"></ul>
+    <details class="guide">
+      <summary><span class="gs-t">ガイド掲載スポット 20 件</span><span class="gs-s">近畿日本ツーリスト「香港観光のおすすめスポット 21 選」より（女人街は上のリストに掲載済み）。地図の紫ピン G1〜G20</span></summary>
+      <ul class="spots spots-guide" data-city="hk"></ul>
+    </details>
   </div>
 </section>
 
@@ -398,7 +413,47 @@ const SPOTS = {
      links:[{t:"香港人直伝！廟街の正しい歩き方（トラベルjp）",u:"https://www.travel.co.jp/guide/article/6988/"},{t:"廟街夜市 徹底解説（Traveloka）",u:"https://www.traveloka.com/ja-jp/explore/culinary/templestreet_nightmarket/580871"},{t:"廟街完全ガイド・新屋台エリア（香港ウンチク話）",u:"https://ameblo.jp/hongkongunchikublog/entry-12930208764.html"}]},
     {n:"女人街（通菜街）", from:"徒歩 3 分", kind:"opt", m:"ホテルから徒歩 3 分。夜市・雑貨", ll:[22.31752,114.17093], q:"Ladies Market, Tung Choi Street, Mong Kok",
      d:"旺角駅 E2 出口すぐの露店街。13〜23 時頃、土産・バッグ・雑貨の露店が約 1km 続く。値切り前提。すぐ隣に金魚街・スニーカー街もあり、ホテルから 3 分なので空き時間にふらっと。",
-     links:[{t:"女人街の楽しみ方と注意点（All About）",u:"https://allabout.co.jp/gm/gc/474905/"},{t:"女人街への行き方と食べ歩き（香港グルメ図鑑）",u:"https://sakeinvest.com/hongkong-ladies-market/"},{t:"女人街 おすすめ土産と最新価格（在住者ブログ）",u:"https://ameblo.jp/erihktabearuki/entry-12959904013.html"}]},
+     links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"},{t:"女人街の楽しみ方と注意点（All About）",u:"https://allabout.co.jp/gm/gc/474905/"},{t:"女人街への行き方と食べ歩き（香港グルメ図鑑）",u:"https://sakeinvest.com/hongkong-ladies-market/"},{t:"女人街 おすすめ土産と最新価格（在住者ブログ）",u:"https://ameblo.jp/erihktabearuki/entry-12959904013.html"}]},
+    {n:"M＋（エムプラス）", from:"MTR 約 20 分（旺角→九龍駅＋徒歩 10 分）", far:true, kind:"guide", m:"西九龍。アジア初の現代ビジュアルカルチャー美術館", ll:[22.30105,114.15915], q:"M+ Museum Hong Kong",
+     d:"18 階建ての壁面が巨大 LED スクリーン。展示室 33・映画館 3・ミュージアムショップ。10:00〜18:00（金は 22:00 まで）、月曜休み。MTR 九龍駅から徒歩約 10 分。9/20 は日曜で開館日。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"香港故宮文化博物館", from:"MTR 約 20 分（旺角→九龍駅＋徒歩 10 分）", far:true, kind:"guide", m:"西九龍。北京故宮の収蔵品 900 点以上", ll:[22.30165,114.1554], q:"Hong Kong Palace Museum",
+     d:"2022 年 7 月開館。テーマ別と特別展の計 9 展示室。10:00〜18:00（金・土・祝は 20:00 まで）。MTR 九龍駅 C1／D1 出口から徒歩約 10 分。M＋の隣。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"戯曲中心（戯曲センター）", from:"MTR 約 12 分（旺角→柯士甸駅）", kind:"guide", m:"尖沙咀西。中国オペラ専門の劇場", ll:[22.30207,114.16721], q:"Xiqu Centre Hong Kong",
+     d:"1,000 席のグランドシアターと、お茶と点心を味わいながら鑑賞できる 200 席の茶館劇場。建物自体が見どころ。10:00〜22:30・年中無休。MTR 柯士甸駅から徒歩約 5 分。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"アベニュー・オブ・スターズ", from:"MTR 約 10 分（旺角→尖沙咀）", kind:"guide", m:"尖沙咀。映画スターの銅像と手形が並ぶ海沿いの遊歩道", ll:[22.29415,114.17579], q:"Avenue of Stars Hong Kong",
+     d:"ブルース・リー像など銅像と 115 の手形。香港島のスカイラインが一望でき、シンフォニー・オブ・ライツの鑑賞にも最適。尖沙咀プロムナードの東側部分にあたるので、夜景を見に行くならここまで歩く。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"K11 MUSEA", from:"MTR 約 10 分（旺角→尖沙咀）", kind:"guide", m:"尖沙咀。アートと買い物の複合施設", ll:[22.29459,114.17495], q:"K11 MUSEA",
+     d:"250 以上のショップとレストラン、世界のアーティスト作品を館内に展示。10:00〜22:00。MTR 尖沙咀駅直結、アベニュー・オブ・スターズの目の前。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"1881 ヘリテージ", from:"MTR 約 10 分（旺角→尖沙咀）", kind:"guide", m:"尖沙咀。1880 年代の水上警察本部を改装", ll:[22.29535,114.16995], q:"1881 Heritage Hong Kong",
+     d:"コロニアル建築にレストランとブランドショップ。時間球塔が見どころで、夜のライトアップが写真向き。展示施設は 12:00〜20:00。スターフェリー乗り場のすぐ近く。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"ハーバーシティ", from:"MTR 約 12 分（旺角→尖沙咀＋徒歩 5 分）", kind:"guide", m:"尖沙咀。香港最大級のショッピングモール", ll:[22.297,114.16842], q:"Harbour City Hong Kong",
+     d:"ショップ 450 以上・レストラン 70 以上・映画館。オーシャンターミナルの屋上デッキは無料の展望台で、ハーバーと夕日がきれいに見える。年中無休。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"大館（旧中環警察署）", from:"MTR 約 25 分（旺角→中環＋徒歩 10 分）", far:true, kind:"guide", m:"中環。180 年の歴史がある警察署・監獄跡", ll:[22.28116,114.15401], q:"Tai Kwun Hong Kong",
+     d:"16 棟の歴史的建造物と新設 2 棟。ギャラリー・ショップ・レストランが入り、警察の歴史展示や監房の見学もできる。8:00〜23:00。ハリウッド・ロード沿い。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"彌敦道（ネーザン・ロード）", from:"徒歩 3 分", kind:"guide", m:"尖沙咀〜旺角を貫くメインストリート", ll:[22.30836,114.17128], q:"Nathan Road Hong Kong",
+     d:"尖沙咀の南端から旺角まで続く大通り。ホテルから西へ 1 本。北へ行くほどローカル色が濃くなり、ネオン看板の下を 2 階建てバスが走る香港らしい景色。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"廣東道（カントン・ロード）", from:"MTR 約 12 分（旺角→尖沙咀＋徒歩 7 分）", kind:"guide", m:"尖沙咀。高級ブランドが並ぶ通り", ll:[22.2975,114.169], q:"Canton Road Tsim Sha Tsui",
+     d:"ハーバーシティと T ギャラリアを中心にブランドブティックが連なる。買い物目的でなければ 1881 ヘリテージと合わせて通り抜ける程度で十分。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"加連威老道（グランビル・ロード）", from:"MTR 約 10 分（旺角→尖沙咀）", kind:"guide", m:"尖沙咀。若者向けのファッション通り", ll:[22.30054,114.17751], q:"Granville Road Tsim Sha Tsui",
+     d:"The One などのモール、ファッション店、コスメ店。路地ではストリートフードも。ごはんメモの妹記大排檔・1瓏點心（金馬倫道）のすぐ隣の通り。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"諾士佛臺（ナッツフォード・テラス）", from:"MTR 約 10 分（旺角→尖沙咀＋徒歩 10 分）", kind:"guide", m:"尖沙咀。バーと各国料理が集まる夜遊びエリア", ll:[22.30101,114.17309], q:"Knutsford Terrace Tsim Sha Tsui",
+     d:"「尖沙咀の蘭桂坊」と呼ばれる、ビルの谷間のテラス席が並ぶ一角。夕食後に 1 杯飲むなら候補。深夜まで営業。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"荷李活道（ハリウッド・ロード）", from:"MTR 約 25 分（旺角→上環＋徒歩 10 分）", far:true, kind:"guide", m:"中環〜上環。骨董とウォールアートの通り", ll:[22.28311,114.15273], q:"Hollywood Road Hong Kong",
+     d:"骨董店・ギャラリー・バー・レストランが並ぶ。グラハム・ストリートの壁画は定番の撮影スポット。大館・PMQ・文武廟・キャットストリートがすべてこの通り沿いで、まとめて回れる。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"黄大仙（ウォンタイシン）", from:"MTR 約 15 分（旺角→黄大仙・乗換 1 回）", far:true, kind:"guide", m:"香港最大の道教寺院。占いで有名", ll:[22.34282,114.19355], q:"Wong Tai Sin Temple",
+     d:"年間 300 万人以上が参拝。黄金色の屋根と朱塗りの柱、占い師の店が約 160 軒。7:00〜16:30・年中無休。MTR 黄大仙駅すぐ。旺角から近く、9/20 午前に行きやすい。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"車公廟（チェーコンミュウ）", from:"MTR 約 25 分（旺角→大圍）", far:true, kind:"guide", m:"大圍。風車を回して運気を変える寺院", ll:[22.37477,114.18618], q:"Che Kung Temple Tai Wai",
+     d:"300 年以上の歴史。主祭壇脇の銅製の風車を時計回りに 3 周回すと運気が変わるとされる。7:00〜18:00・年中無休。MTR 大圍駅から徒歩約 6 分。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"文武廟（マンモーミュウ）", from:"MTR 約 25 分（旺角→上環＋徒歩 10 分）", far:true, kind:"guide", m:"上環。渦巻き線香が天井を埋める寺院", ll:[22.28387,114.15016], q:"Man Mo Temple Hong Kong",
+     d:"約 150 年前の建立。文神と武神を祀る。天井から吊られた多数の渦巻き線香が印象的。8:00〜18:00。ハリウッド・ロード 128 号。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"利東街（リートン・アベニュー）", from:"MTR 約 25 分（旺角→灣仔）", far:true, kind:"guide", m:"灣仔。ランタンが連なる再開発ストリート", ll:[22.27642,114.17244], q:"Lee Tung Avenue Wan Chai",
+     d:"旧印刷・紙製品の問屋街を再開発。頭上のランタン装飾とアート、話題のカフェやレストラン。MTR 灣仔駅直結。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"PMQ", from:"MTR 約 25 分（旺角→中環＋徒歩 13 分）", far:true, kind:"guide", m:"中環。若手デザイナーの店が 100 軒以上", ll:[22.28327,114.15185], q:"PMQ Hong Kong",
+     d:"旧警察宿舎を改修したクリエイティブ施設。手作り雑貨・ファッション・アクセサリーで、香港らしい土産が見つかる。7:30〜23:00（店舗により異なる）。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"キャット・ストリート", from:"MTR 約 25 分（旺角→上環＋徒歩 10 分）", far:true, kind:"guide", m:"上環。骨董と工芸品の露店街", ll:[22.28489,114.14966], q:"Upper Lascar Row Hong Kong",
+     d:"摩羅上街。150m ほどの通りに骨董店と露店が並び、ヒスイやアンティーク小物が手に入る。だいたい 10:00〜18:00。文武廟のすぐ裏。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
+    {n:"スタンレー・メインストリート", from:"バス含め約 1 時間 15 分", far:true, kind:"guide", m:"香港島南部。海辺の市場とマレーハウス", ll:[22.21868,114.21092], q:"Stanley Main Street Hong Kong",
+     d:"赤柱大街にシルク・リネン・アクセサリーの店が連なるアーケード。1846 年建造のマレーハウスにレストラン。中環から 6・6X・260 番バス。往復で半日かかるので今回の日程では厳しい。", links:[{t:"香港観光のおすすめスポット 21 選（近畿日本ツーリスト）",u:"https://www.knt.co.jp/travelguide/kaigai/047/"}]},
     {n:"香港国際空港", from:"A21 バス 約 50 分／車 35 分", far:true, kind:"air", tag:"9/20 14:30", m:"出発 16:30。2 時間前に到着", ll:[22.31260,113.91730], q:"Hong Kong International Airport",
      d:"旺角からは A21 バス（約 50 分・約 HK$35）か、MTR で九龍駅へ出てエアポートエクスプレス（約 20 分）。香港エクスプレスは LCC なので手荷物ルールを事前に確認。", links:[]},
   ],
@@ -458,7 +513,7 @@ const SPOTS = {
      d:"1 区から車で 30 分前後（夜は渋滞が少ない）。国際線ターミナル T2。ベトジェットは LCC で出国審査に時間がかかることがあるので 2 時間半前を目安に。", links:[]},
   ],
 };
-const KIND_LABEL = {stay:"宿", fix:"確定", cand:"候補", opt:"任意", air:"空港"};
+const KIND_LABEL = {stay:"宿", fix:"確定", cand:"候補", opt:"任意", air:"空港", guide:"ガイド掲載"};
 const gmaps = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
 const maps = {};
 
@@ -471,18 +526,19 @@ Object.keys(SPOTS).forEach(city => {
   const map = L.map("map-" + city, {scrollWheelZoom:false, tap:true});
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {maxZoom:19, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
   const group = L.featureGroup().addTo(map);
-  const list = document.querySelector(`.spots[data-city="${city}"]`);
+  const list = document.querySelector(`.spots:not(.spots-guide)[data-city="${city}"]`);
+  const guideList = document.querySelector(`.spots-guide[data-city="${city}"]`);
   const markers = [];
   const stay = SPOTS[city].find(x => x.kind === "stay");
   const km = (a, b) => { const R=6371, dLat=(b[0]-a[0])*Math.PI/180, dLon=(b[1]-a[1])*Math.PI/180, la1=a[0]*Math.PI/180, la2=b[0]*Math.PI/180; const h=Math.sin(dLat/2)**2+Math.cos(la1)*Math.cos(la2)*Math.sin(dLon/2)**2; return 2*R*Math.asin(Math.sqrt(h)); };
   const fmtKm = d => d < 1 ? `${Math.round(d*100)*10} m` : `${d < 10 ? d.toFixed(1) : Math.round(d)} km`;
   const fromText = s => s.from ? `宿から ${s.from} ・ 直線 ${fmtKm(km(stay.ll, s.ll))}` : "";
-  let n = 0;
+  let n = 0, g = 0;
   SPOTS[city].forEach((s, i) => {
-    const label = s.kind === "stay" ? "★" : String(++n);
+    const label = s.kind === "stay" ? "★" : s.kind === "guide" ? "G" + (++g) : String(++n);
     const mk = L.marker(s.ll, {icon: pinIcon(s.kind, label), title: s.n}).addTo(group);
     mk.bindPopup(`<span class="pn">${label==="★"?"★ ":label+". "}${s.n}</span><span class="pm">${s.tag?`<b>${s.tag}</b> ・ `:""}${s.m}</span>${s.from?`<span class="pf">${fromText(s)}</span>`:""}<a class="pa" href="${gmaps(s.q)}" target="_blank" rel="noopener">Google マップで開く ↗</a>${s.links&&s.links.length?`<a class="pa pa2" href="${s.links[0].u}" target="_blank" rel="noopener">紹介記事 ↗</a>`:""}`);
-    mk.bindTooltip(label==="★"?"宿":s.n.replace(/（.*?）/g,""), {permanent:true, direction:"right", offset:[8,-14], className:"lbl"});
+    mk.bindTooltip(label==="★"?"宿":s.n.replace(/（.*?）/g,""), {permanent:s.kind!=="guide", direction:"right", offset:[8,-14], className:"lbl"});
     markers.push(mk);
     // list row
     const li = document.createElement("li");
@@ -507,7 +563,7 @@ Object.keys(SPOTS).forEach(city => {
       if (hasDetail) toggle(); else focus();
     });
     li.addEventListener("keydown", e => { if (e.key === "Enter" && e.target === li) { hasDetail ? toggle() : focus(); } });
-    list.appendChild(li);
+    (s.kind === "guide" && guideList ? guideList : list).appendChild(li);
   });
   const near = L.featureGroup(markers.filter((m, i) => !SPOTS[city][i].far));
   const fitAll = () => map.fitBounds(group.getBounds(), {padding:[36,36], maxZoom:16});
