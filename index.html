@@ -304,7 +304,7 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
       <ul class="spots spots-food" data-city="dn"></ul>
     </details>
     <details class="guide shop" open>
-      <summary><span class="gs-t">お土産屋 10 件</span><span class="gs-s">市内中心 4 件（S1〜S4・ハン市場周辺で歩いて回れる）、宿の近く 2 件（S5〜S6）、アントゥン 2 件（S7〜S8）、スーパーと市場（S9〜S10）。地図の桃色ピン</span></summary>
+      <summary><span class="gs-t">お土産屋 15 件</span><span class="gs-s">ダナン市内中心 4 件（S1〜S4・ハン市場周辺で歩いて回れる）、宿の近く 2 件（S5〜S6）、アントゥン 2 件（S7〜S8）、スーパーと市場（S9〜S10）、ホイアン 5 件（S11〜S15・9/21 夜）。地図の桃色ピン</span></summary>
       <ul class="spots spots-shop" data-city="dn"></ul>
     </details>
   </div>
@@ -320,7 +320,7 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
 
   <div class="mapbox">
     <div class="mapc" id="map-hcm"></div>
-    <div class="mapbar"><span class="lg"><i style="background:#0E7C86"></i>宿</span><span class="lg"><i style="background:#2F855A"></i>確定</span><span class="lg"><i style="background:#8A95A5"></i>任意</span><span class="lg"><i style="background:#4A5568"></i>空港</span><button type="button" data-fit="hcm">全ピンを表示</button></div>
+    <div class="mapbar"><span class="lg"><i style="background:#0E7C86"></i>宿</span><span class="lg"><i style="background:#2F855A"></i>確定</span><span class="lg"><i style="background:#8A95A5"></i>任意</span><span class="lg"><i style="background:#4A5568"></i>空港</span><span class="lg"><i style="background:#B83280"></i>お土産</span><button type="button" data-fit="hcm">全ピンを表示</button></div>
     <div class="stayline">
       <span class="lbl">Stay ・ 4★</span>
       <span class="name">The Solith Hotel Managed by Nicecy</span>
@@ -350,6 +350,10 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
   <div class="blk">
     <h3><span class="eyebrow">Spots</span>行く場所</h3>
     <ul class="spots" data-city="hcm"></ul>
+    <details class="guide shop" open>
+      <summary><span class="gs-t">お土産屋 7 件</span><span class="gs-s">すべて 1 区・ホテルから徒歩 8〜15 分。レタントン〜ドンコイ〜レロイを一筆書きで回れる。地図の桃色ピン S1〜S7。ベンタイン市場は上のリスト</span></summary>
+      <ul class="spots spots-shop" data-city="hcm"></ul>
+    </details>
   </div>
 </section>
 
@@ -533,6 +537,16 @@ const SPOTS = {
      d:"06 Nại Nam。食品フロアにコーヒー（G7・チュングエン）、インスタントフォー、ドライフルーツ、ナッツ、チリソース、お菓子が定価で並ぶ。交渉不要・カード可・夜 22 時頃まで。最終日の前夜にまとめ買いするならここ。", links:[{t:"ロッテマート完全ガイド 2026（旅するホイアン・ダナン手帖）",u:"https://hoian-danang.com/danang-lotte-mart-supermarket-guide/"},{t:"ダナンの大型スーパー＆モール 5 選（Danang Holic）",u:"https://danang-holic.com/shopping/danang-supermarket/"}]},
     {n:"コン市場（Chợ Cồn）", from:"車 12 分", far:true, kind:"shop", m:"市内西。地元向けの巨大市場とローカルグルメ", ll:[16.06813,108.21452], q:"Con Market Da Nang",
      d:"290 Hùng Vương。土産はハン市場より安いが観光客向けの品は少なめ。屋内外のグルメゾーンでミークアンやライスペーパーの豚肉巻きの食べ歩きができる。", links:[{t:"ダナン買い物完全ガイド（ベトナム航空）",u:"https://www.vietnamairlines.com/jp/ja/plan-book/travel/travel-guide/shopping-in-danang"}]},
+    {n:"ホイアン ナイトマーケット（アンホイ島）", from:"車 45 分（ホイアン旧市街から橋を渡ってすぐ）", far:true, kind:"shop", m:"ランタン・雑貨・B 級グルメの屋台が約 300m", ll:[15.87578,108.32593], q:"Hoi An Night Market Nguyen Hoang",
+     d:"Nguyễn Hoàng 通り。18:00〜22:00 頃がピーク。ランタン、アオザイ、T シャツ、マグネット、箸、刺繍小物。値札がほぼなく交渉制で、言い値の半分〜6 割が目安。ランタン屋の前は撮影スポット（撮影だけだと料金を取る店あり）。旧市街側の Bạch Đằng 通りにも屋台が出る。", links:[{t:"ホイアンのオシャレなお土産屋さん 8 選（Danang Holic）",u:"https://danang-holic.com/shopping/hoian-omiyage-shop-suggestions/"},{t:"ホイアンのお土産屋さんリスト 2026（ダナンスタイル）",u:"https://danang.style/tourism/1355"},{t:"ホイアンナイトマーケット完全攻略（KKday）",u:"https://www.kkday.com/ja/blog/117277/asia-vietnam-hoi-an-night-market"}]},
+    {n:"Thach Dung Lanterns（ランタン専門）", from:"車 45 分（ナイトマーケット内）", far:true, kind:"shop", m:"折りたためる伝統ランタン。3〜10 万ドン", ll:[15.87605,108.3258], q:"Thach Dung Lanterns 6 Nguyen Hoang Hoi An",
+     d:"6 Nguyễn Hoàng。15:00〜23:00。シルクのランタンが 1 個 3 万〜10 万ドン（約 180〜600 円）。折りたたんで持ち帰れるのでスーツケースに入る。英語可。ピン位置は概略。", links:[{t:"ホイアンのオシャレなお土産屋さん 8 選（Danang Holic）",u:"https://danang-holic.com/shopping/hoian-omiyage-shop-suggestions/"},{t:"ホイアンのお土産屋さんリスト 2026（ダナンスタイル）",u:"https://danang.style/tourism/1355"}]},
+    {n:"Metiseko（メティセコ）", from:"車 45 分（旧市街 Trần Phú 通り）", far:true, kind:"shop", m:"オーガニックコットンとシルクの上質な服・スカーフ", ll:[15.87717,108.32762], q:"Metiseko 140 Tran Phu Hoi An",
+     d:"140 Trần Phú。8:30〜21:30。有機認定の綿とシルクを使った服、スカーフ、財布、家庭用品。少し良い土産向き。値札どおりでカード可。", links:[{t:"ホイアンのオシャレなお土産屋さん 8 選（Danang Holic）",u:"https://danang-holic.com/shopping/hoian-omiyage-shop-suggestions/"},{t:"ホイアンのお土産屋さんリスト 2026（ダナンスタイル）",u:"https://danang.style/tourism/1355"}]},
+    {n:"Sunday in Hoi An（雑貨）", from:"車 45 分（旧市街 Trần Phú 通り西側）", far:true, kind:"shop", m:"カゴバッグ・コースター・帽子などのかわいい雑貨", ll:[15.8772,108.3265], q:"Sunday in Hoi An 184 Tran Phu",
+     d:"184 Trần Phú。来遠橋（日本橋）の近く。9:00〜21:00。コースター、カチューシャ、ハンドバッグ、帽子。女性向けの土産がまとめて選べる。ピン位置は概略。", links:[{t:"ホイアンのオシャレなお土産屋さん 8 選（Danang Holic）",u:"https://danang-holic.com/shopping/hoian-omiyage-shop-suggestions/"},{t:"ホイアンのお土産屋さんリスト 2026（ダナンスタイル）",u:"https://danang.style/tourism/1355"}]},
+    {n:"Maison Marou ホイアン（チョコ）", from:"車 45 分（旧市街 Lê Lợi 通り）", far:true, kind:"shop", m:"ベトナム産カカオのチョコとカフェ", ll:[15.87916,108.32866], q:"Maison Marou Hoi An 42 Le Loi",
+     d:"42 Lê Lợi。8:30〜22:00。板チョコ、トリュフ、カフェ併設で休憩にも使える。ダナン店で買いそびれた場合の保険。", links:[{t:"ホイアンのオシャレなお土産屋さん 8 選（Danang Holic）",u:"https://danang-holic.com/shopping/hoian-omiyage-shop-suggestions/"},{t:"ホイアンのお土産屋さんリスト 2026（ダナンスタイル）",u:"https://danang.style/tourism/1355"}]},
     {n:"ダナン国際空港", from:"車 10〜15 分", far:true, kind:"air", tag:"9/22 07:00", m:"出発 08:55。宿から車 10〜15 分", ll:[16.04258,108.19716], q:"Da Nang International Airport",
      d:"市街地のすぐ西。国内線ターミナル（T1）から 08:55 発ベトジェット。LCC なので 1 時間半前には到着したい。早朝なので送迎車を前夜に確定しておく。", links:[]},
   ],
@@ -558,6 +572,20 @@ const SPOTS = {
     {n:"メコン川ツアー（ミトー）", from:"車 1.5〜2 時間（ツアー送迎）", far:true, kind:"opt", tag:"任意・要予約", m:"南西へ車 1.5 時間。行くなら 9/23 午前", ll:[10.36277,106.35909], q:"My Tho, Tien Giang",
      d:"ミトーからボートで中洲の島へ渡り、手漕ぎ舟のジャングルクルーズ・ココナッツキャンディー工房・果樹園・象耳魚の昼食を回る定番ツアー。日本語ガイド付きの半日〜1 日ツアーがホテル送迎付きで予約できる。9/23 は夜 21 時に空港なので半日ツアーが現実的。",
      links:[{t:"メコンデルタ日帰りツアー（TNK トラベル）",u:"https://www.tnkjapan.com/tours/detail/4"},{t:"ミトー メコン川クルーズ 午後半日（Pandabus）",u:"https://www.pandabus.com/vietnam/-ar-SGN/-tr-SGN1S05N"},{t:"メコン川クルーズに自力で行く方法（KKday）",u:"https://www.kkday.com/ja/blog/95833/asia-vietnam-ho-chi-minh-mekong-river-cruise"}]},
+    {n:"Ha Phuong（ハーフォン）刺繍雑貨", from:"徒歩 10 分", kind:"shop", m:"レタントン通り。刺繍の巾着・コースター・ランチョンマット", ll:[10.7757,106.7003], q:"Ha Phuong Souvenir 89 Le Thanh Ton",
+     d:"89 Lê Thánh Tôn。8:00〜19:00。刺繍巾着、テーブルクロス、名前のアルファベット刺繍。コースター 7 万ドン（約 430 円）〜。ホテルと同じ通りで、西へ歩いて 10 分。ピン位置は概略。", links:[{t:"ホーチミン 1 区 センスのいいお土産雑貨店（Star Kitchen ブログ）",u:"https://www.starkitchen-vietnam-gift.com/post/ho-chi-minh-district1-souvenir-shops-10"}]},
+    {n:"The Craft House（ザ・クラフト・ハウス）", from:"徒歩 12 分", kind:"shop", m:"ドンコイ通り。モダンなベトナムモチーフ雑貨", ll:[10.7743,106.705], q:"The Craft House 32 Dong Khoi",
+     d:"32 Đồng Khởi。8:00〜22:00。木製小物、文房具、ステッカー、ハノイ版モノポリーなど。値札どおりで遅くまで開いているので、9/23 夜の出発前にも寄れる。", links:[{t:"ホーチミン 1 区 センスのいいお土産雑貨店（Star Kitchen ブログ）",u:"https://www.starkitchen-vietnam-gift.com/post/ho-chi-minh-district1-souvenir-shops-10"}]},
+    {n:"Ninh Khuong（ニンクオン）手刺繍", from:"徒歩 13 分", kind:"shop", m:"レロイ通り。上品な刺繍バッグ・巾着・パジャマ", ll:[10.7757,106.703], q:"Ninh Khuong 32 Le Loi",
+     d:"32 Lê Lợi（ドンコイ通りにも別店舗）。8:00〜21:30。高級感のわりに手頃。子ども服もかわいい。ピン位置は概略。", links:[{t:"ホーチミン 1 区 センスのいいお土産雑貨店（Star Kitchen ブログ）",u:"https://www.starkitchen-vietnam-gift.com/post/ho-chi-minh-district1-souvenir-shops-10"}]},
+    {n:"Saigon Eco Craft（バッチャン焼き）", from:"徒歩 15 分", kind:"shop", m:"レロイ通り。市内最安クラスのバッチャン焼きと刺繍ポーチ", ll:[10.77368,106.70063], q:"Saigon Eco Craft 90 Le Loi",
+     d:"90 Lê Lợi。8:00〜22:00。ニューバッチャンの食器、刺繍ポーチ、ベトナム食器。高島屋のすぐ隣。割れ物は梱包を頼む。", links:[{t:"ホーチミン 1 区 センスのいいお土産雑貨店（Star Kitchen ブログ）",u:"https://www.starkitchen-vietnam-gift.com/post/ho-chi-minh-district1-souvenir-shops-10"}]},
+    {n:"ホーチミン高島屋（Star Kitchen・食品売場）", from:"徒歩 15 分", kind:"shop", m:"サイゴンセンター内。地下 2 階が土産の定番", ll:[10.77315,106.70053], q:"Takashimaya Ho Chi Minh Saigon Centre",
+     d:"92-94 Nam Kỳ Khởi Nghĩa。9:30〜21:30 頃。地下 2 階に Star Kitchen（バインミーラスク・コーヒー・お茶）と食品売場。冷房が効いていて、会社用のばらまき土産をまとめて買うならここ。ベンタイン市場の徒歩 5 分にも Star Kitchen の旗艦店（2026 年 5 月開業）あり。", links:[{t:"ホーチミン 1 区 センスのいいお土産雑貨店（Star Kitchen ブログ）",u:"https://www.starkitchen-vietnam-gift.com/post/ho-chi-minh-district1-souvenir-shops-10"}]},
+    {n:"Saigon Square（サイゴンスクエア）", from:"徒歩 15 分", kind:"shop", m:"高島屋の向かい。衣類・バッグ・刺繍小物の屋内市場", ll:[10.7728,106.70019], q:"Saigon Square Ho Chi Minh",
+     d:"77-89 Nam Kỳ Khởi Nghĩa。9:00〜21:00。刺繍ポーチ、巾着、ランチョンマット、アウトドア系バッグ。交渉制で、ベンタイン市場より冷房があって歩きやすい。", links:[{t:"ホーチミン 1 区 センスのいいお土産雑貨店（Star Kitchen ブログ）",u:"https://www.starkitchen-vietnam-gift.com/post/ho-chi-minh-district1-souvenir-shops-10"}]},
+    {n:"Vincom Center ドンコイ（WinMart）", from:"徒歩 8 分", kind:"shop", m:"地下のスーパーで食品土産を定価で", ll:[10.77816,106.70189], q:"Vincom Center Dong Khoi",
+     d:"72 Lê Thánh Tôn。10:00〜22:00。地下 3 階の WinMart にコーヒー（G7・チュングエン）、インスタントフォー、ドライフルーツ、ナッツ、チリソース。交渉不要・カード可。ホテルからいちばん近いまとめ買いスポット。", links:[{t:"ホーチミン 1 区のショッピングモール 8 選 2026（TNK トラベル）",u:"https://www.tnkjapan.com/blog/2020/07/18/saigon_shoppingmorl/"},{t:"ホーチミン 1 区 センスのいいお土産雑貨店（Star Kitchen ブログ）",u:"https://www.starkitchen-vietnam-gift.com/post/ho-chi-minh-district1-souvenir-shops-10"}]},
     {n:"タンソンニャット国際空港", from:"車 30 分", far:true, kind:"air", tag:"9/23 21:00", m:"出発 23:35。市内から車 30 分", ll:[10.81798,106.65626], q:"Tan Son Nhat International Airport",
      d:"1 区から車で 30 分前後（夜は渋滞が少ない）。国際線ターミナル T2。ベトジェットは LCC で出国審査に時間がかかることがあるので 2 時間半前を目安に。", links:[]},
   ],
