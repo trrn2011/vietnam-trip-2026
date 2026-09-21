@@ -82,6 +82,8 @@ section.city{margin-top:28px;padding-top:8px}
 .mk.opt{background:#8A95A5}
 .mk.air{background:#4A5568}
 .mk.guide{background:#7A5AA6;width:24px;height:24px}
+.mk.shop{background:#B83280;width:24px;height:24px}
+.mk.shop span{font-size:9.5px;letter-spacing:-.03em}
 .mk.food{background:#C2553A;width:24px;height:24px}
 .mk.food span{font-size:9.5px;letter-spacing:-.03em}
 .mk.guide span{font-size:9.5px;letter-spacing:-.03em}
@@ -122,7 +124,7 @@ section.city{margin-top:28px;padding-top:8px}
 .spot{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:2px 10px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 10px 10px 12px;cursor:pointer}
 .spot:hover,.spot:focus-visible{border-color:var(--accent);outline:none}
 .spot .no{grid-row:1/4;width:28px;height:28px;border-radius:50%;color:#fff;font:700 12px/28px "DM Mono",monospace;text-align:center}
-.spot .no.stay{background:#0E7C86}.spot .no.fix{background:#2F855A}.spot .no.cand{background:#B8862B}.spot .no.opt{background:#8A95A5}.spot .no.air{background:#4A5568}.spot .no.guide{background:#7A5AA6;font-size:10.5px}.spot .no.food{background:#C2553A;font-size:10.5px}
+.spot .no.stay{background:#0E7C86}.spot .no.fix{background:#2F855A}.spot .no.cand{background:#B8862B}.spot .no.opt{background:#8A95A5}.spot .no.air{background:#4A5568}.spot .no.guide{background:#7A5AA6;font-size:10.5px}.spot .no.food{background:#C2553A;font-size:10.5px}.spot .no.shop{background:#B83280;font-size:10.5px}
 details.food .gs-t{color:#C2553A}
 details.guide{margin-top:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper);overflow:hidden}
 details.guide summary{list-style:none;cursor:pointer;padding:12px 40px 12px 14px;position:relative;display:flex;flex-direction:column;gap:2px}
@@ -134,6 +136,7 @@ details.guide .gs-s{font-size:12px;color:var(--ink-2);line-height:1.5}
 details.guide .spots{padding:0 10px 10px}
 details.guide .spot{background:var(--bg)}
 details.guide.food .gs-t{color:#C2553A}
+details.guide.shop .gs-t{color:#B83280}
 .spot .n{font-weight:700;font-size:15px}
 .spot .n .tag{display:inline-block;font-size:10.5px;font-weight:500;letter-spacing:.06em;color:var(--gold);background:var(--gold-soft);border-radius:999px;padding:1px 8px;margin-left:8px;vertical-align:2px;font-family:"DM Mono",monospace}
 .spot .n .tag.fix{color:var(--accent);background:var(--accent-soft)}
@@ -261,7 +264,7 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
 
   <div class="mapbox">
     <div class="mapc" id="map-dn"></div>
-    <div class="mapbar"><span class="lg"><i style="background:#0E7C86"></i>宿</span><span class="lg"><i style="background:#2F855A"></i>確定</span><span class="lg"><i style="background:#B8862B"></i>候補</span><span class="lg"><i style="background:#8A95A5"></i>任意</span><span class="lg"><i style="background:#4A5568"></i>空港</span><span class="lg"><i style="background:#C2553A"></i>レストラン</span><button type="button" data-fit="dn">全ピンを表示</button></div>
+    <div class="mapbar"><span class="lg"><i style="background:#0E7C86"></i>宿</span><span class="lg"><i style="background:#2F855A"></i>確定</span><span class="lg"><i style="background:#B8862B"></i>候補</span><span class="lg"><i style="background:#8A95A5"></i>任意</span><span class="lg"><i style="background:#4A5568"></i>空港</span><span class="lg"><i style="background:#C2553A"></i>レストラン</span><span class="lg"><i style="background:#B83280"></i>お土産</span><button type="button" data-fit="dn">全ピンを表示</button></div>
     <div class="stayline">
       <span class="lbl">Stay ・ Airbnb</span>
       <span class="name">ミーケービーチ（An Hải Bắc）</span>
@@ -299,6 +302,10 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);border-top:1px solid va
     <details class="guide food" open>
       <summary><span class="gs-t">リゾート感のあるレストラン 7 件</span><span class="gs-s">ドラゴン橋・ハン川沿い 4 件（R1〜R4）とミーケービーチ沿い 3 件（R5〜R7）。地図の橙ピン</span></summary>
       <ul class="spots spots-food" data-city="dn"></ul>
+    </details>
+    <details class="guide shop" open>
+      <summary><span class="gs-t">お土産屋 10 件</span><span class="gs-s">市内中心 4 件（S1〜S4・ハン市場周辺で歩いて回れる）、宿の近く 2 件（S5〜S6）、アントゥン 2 件（S7〜S8）、スーパーと市場（S9〜S10）。地図の桃色ピン</span></summary>
+      <ul class="spots spots-shop" data-city="dn"></ul>
     </details>
   </div>
 </section>
@@ -506,6 +513,26 @@ const SPOTS = {
      d:"3-5 Võ Nguyên Giáp。生け簀から選ぶ海鮮の有名店。海風の入るテラス席。8:00〜23:00。1 卓 100〜150 万ドン（約 6,000〜9,000 円）が目安、5 名でシェア向き。時価の品は注文前に重さと値段を確認。予約可。", links:[{t:"ミーケビーチ沿い おすすめレストラン 23 選（yutravel）",u:"https://yutravel.blog/danang-beacharea-restaurant/"},{t:"ダナンのシーフードレストラン 8 選（Danang Holic）",u:"https://danang-holic.com/restaurant_cafe/suggestion-top-5-seafood-restaurant-in-danang/"}]},
     {n:"Hải Sản Bé Mặn（ベーマン）", from:"車 6 分", kind:"food", m:"ビーチ北側。地元で一番人気の海鮮食堂", ll:[16.08181,108.24728], q:"Hải Sản Bé Mặn Đà Nẵng",
      d:"Lô 9 Võ Nguyên Giáp（Mân Thái）。海沿いの大箱ローカル海鮮で、夜は地元客と旅行者で満席になる。9:00〜0:00・時価。リゾートというより賑やかな浜の食堂の雰囲気。安くて新鮮。", links:[{t:"ミーケビーチ沿い おすすめレストラン 23 選（yutravel）",u:"https://yutravel.blog/danang-beacharea-restaurant/"}]},
+    {n:"ハン市場（Chợ Hàn）", from:"車 8 分", kind:"shop", m:"市内中心。定番のローカル市場。ばらまき土産が最安", ll:[16.06835,108.22428], q:"Han Market Da Nang",
+     d:"119 Trần Phú。1 階が食品（コーヒー・ドライフルーツ・ナッツ・調味料）、2 階が衣類・カゴバッグ・サンダル・アオザイ仕立て。6:00〜19:00（店による）。値札がない店は交渉制で、言い値の 6〜7 割が目安。ドラゴン橋から北へ徒歩 10 分。", links:[{t:"おすすめお土産ショップ 10 選 2026（Danang Holic）",u:"https://danang-holic.com/special/uyen-chan-osusume-top-6-omiyage-shop-in-danang/"},{t:"お土産屋さんリスト 2026（ダナンスタイル）",u:"https://danang.style/tourism/1425"},{t:"ハン市場に行ってみた・両替情報（そらいろトラベル）",u:"https://sorairo.blog/danang-han-market-and-exchange/"}]},
+    {n:"Star Kitchen（スターキッチン）", from:"車 8 分", kind:"shop", m:"市内中心。日本人経営のオリジナル菓子。配りやすい個包装", ll:[16.0653,108.2225], q:"Star Kitchen 75 Trần Quốc Toản Đà Nẵng",
+     d:"75 Trần Quốc Toản。ダナン大聖堂から徒歩 5 分、ハン市場の近く。バインミーラスク、バナナクッキー、カシューナッツ、ドリップコーヒー、フラワーティー。パッケージがベトナムの風景柄で会社向けに使いやすい。9:00〜21:00・日本語対応。ピン位置は概略。", links:[{t:"おすすめお土産ショップ 10 選 2026（Danang Holic）",u:"https://danang-holic.com/special/uyen-chan-osusume-top-6-omiyage-shop-in-danang/"},{t:"お土産屋さんリスト 2026（ダナンスタイル）",u:"https://danang.style/tourism/1425"},{t:"ダナンのお土産完全ガイド（Star Kitchen 公式ブログ）",u:"https://www.starkitchen-vietnam-gift.com/post/danang-souvenirs"}]},
+    {n:"Hoa Ly（ホアリー）", from:"車 8 分", kind:"shop", m:"市内中心。日本人オーナーのセレクト雑貨の定番店", ll:[16.06646,108.22369], q:"Hoa Ly Shop 252 Trần Phú Đà Nẵng",
+     d:"252 Trần Phú。食品・雑貨・アパレル・カゴバッグ（2 階が充実）、バッチャン焼き、アオザイ、ベトナム T シャツ。品質が安定していて値札どおり。10:00〜18:00・日本語対応。Pizza 4P's から徒歩数分。", links:[{t:"おすすめお土産ショップ 10 選 2026（Danang Holic）",u:"https://danang-holic.com/special/uyen-chan-osusume-top-6-omiyage-shop-in-danang/"},{t:"お土産屋さんリスト 2026（ダナンスタイル）",u:"https://danang.style/tourism/1425"}]},
+    {n:"Maison Marou（メゾン マルゥ）", from:"車 8 分", kind:"shop", m:"市内中心。ベトナム産カカオの高級チョコ。カフェ併設", ll:[16.06564,108.22366], q:"Maison Marou Da Nang",
+     d:"197 Trần Phú。シングルオリジンの板チョコ、トリュフ、クッキー。パッケージが美しく、少し良い土産向き。8:00〜22:00。向かいに Alluvia Chocolatier（196 Trần Phú・9:00〜21:00）もあり、食べ比べできる。", links:[{t:"おすすめお土産ショップ 10 選 2026（Danang Holic）",u:"https://danang-holic.com/special/uyen-chan-osusume-top-6-omiyage-shop-in-danang/"},{t:"お土産屋さんリスト 2026（ダナンスタイル）",u:"https://danang.style/tourism/1425"}]},
+    {n:"Tropical Souvenir（トロピカルスーベニア）", from:"徒歩 12 分", kind:"shop", m:"ソンチャ。宿からいちばん近い日本人経営の雑貨店", ll:[16.06981,108.23544], q:"Tropical Souvenir 21 Dương Đình Nghệ Đà Nẵng",
+     d:"21 Dương Đình Nghệ（2 階）。家畜や魚のエサ袋をリメイクしたバッグ、オリジナル T シャツ、エコバッグ、ポーチ、お菓子。10:00〜18:00・日本語対応。宿から西へ約 800m。ピンは通りの位置で番地単位の誤差あり。", links:[{t:"おすすめお土産ショップ 10 選 2026（Danang Holic）",u:"https://danang-holic.com/special/uyen-chan-osusume-top-6-omiyage-shop-in-danang/"},{t:"お土産屋さんリスト 2026（ダナンスタイル）",u:"https://danang.style/tourism/1425"}]},
+    {n:"CAT TRANG（カッチャン）", from:"車 5 分", kind:"shop", m:"ソンチャ南。カゴバッグ 100 種類以上の専門店", ll:[16.0585,108.2385], q:"CAT TRANG Da Nang 142/1 Nguyễn Duy Hiệu",
+     d:"142/1 Nguyễn Duy Hiệu。プラカゴバッグ、手編みマクラメバッグ、オーダーメイドサンダル。日本人とベトナム人のご夫婦が経営。9:30〜18:30・日本語対応。ピン位置は概略。", links:[{t:"おすすめお土産ショップ 10 選 2026（Danang Holic）",u:"https://danang-holic.com/special/uyen-chan-osusume-top-6-omiyage-shop-in-danang/"},{t:"お土産屋さんリスト 2026（ダナンスタイル）",u:"https://danang.style/tourism/1425"}]},
+    {n:"Table Produce（テーブルプロデュース）", from:"車 6 分", kind:"shop", m:"アントゥン。食品土産と日本食材の日系ショップ", ll:[16.0468,108.2437], q:"Table Produce 01 An Thượng 32 Đà Nẵng",
+     d:"01 An Thượng 32。ナッツ、ドライフルーツ、コーヒー、ココナッツクッキー、マンゴーゼリー、プラカゴバッグ、サンダル。9:00〜21:00 と遅くまで開いていて日本語対応。アントゥンのグルメ街で食事のついでに寄れる。ピン位置は概略。", links:[{t:"おすすめお土産ショップ 10 選 2026（Danang Holic）",u:"https://danang-holic.com/special/uyen-chan-osusume-top-6-omiyage-shop-in-danang/"},{t:"お土産屋さんリスト 2026（ダナンスタイル）",u:"https://danang.style/tourism/1425"}]},
+    {n:"Sunglow（サングロウ）", from:"車 6 分", kind:"shop", m:"アントゥン。コーヒーとオリジナル雑貨のギフトショップ", ll:[16.04879,108.24348], q:"Sunglow 15 Hoàng Kế Viêm Đà Nẵng",
+     d:"15 Hoàng Kế Viêm。ONIGIRI CAFE NGON の隣。オーナーが農園で選んだコーヒー、ナッツ、バッチャン焼き、オリジナル T シャツ・キャップ・トート。平日 11:00〜19:00、土日 9:00〜19:00、火曜定休（9/22 火は休み）。日本語対応。", links:[{t:"おすすめお土産ショップ 10 選 2026（Danang Holic）",u:"https://danang-holic.com/special/uyen-chan-osusume-top-6-omiyage-shop-in-danang/"},{t:"お土産屋さんリスト 2026（ダナンスタイル）",u:"https://danang.style/tourism/1425"}]},
+    {n:"ロッテマート ダナン", from:"車 12 分", far:true, kind:"shop", m:"市内南。5 フロアの大型スーパー。まとめ買い向き", ll:[16.03493,108.22923], q:"Lotte Mart Da Nang",
+     d:"06 Nại Nam。食品フロアにコーヒー（G7・チュングエン）、インスタントフォー、ドライフルーツ、ナッツ、チリソース、お菓子が定価で並ぶ。交渉不要・カード可・夜 22 時頃まで。最終日の前夜にまとめ買いするならここ。", links:[{t:"ロッテマート完全ガイド 2026（旅するホイアン・ダナン手帖）",u:"https://hoian-danang.com/danang-lotte-mart-supermarket-guide/"},{t:"ダナンの大型スーパー＆モール 5 選（Danang Holic）",u:"https://danang-holic.com/shopping/danang-supermarket/"}]},
+    {n:"コン市場（Chợ Cồn）", from:"車 12 分", far:true, kind:"shop", m:"市内西。地元向けの巨大市場とローカルグルメ", ll:[16.06813,108.21452], q:"Con Market Da Nang",
+     d:"290 Hùng Vương。土産はハン市場より安いが観光客向けの品は少なめ。屋内外のグルメゾーンでミークアンやライスペーパーの豚肉巻きの食べ歩きができる。", links:[{t:"ダナン買い物完全ガイド（ベトナム航空）",u:"https://www.vietnamairlines.com/jp/ja/plan-book/travel/travel-guide/shopping-in-danang"}]},
     {n:"ダナン国際空港", from:"車 10〜15 分", far:true, kind:"air", tag:"9/22 07:00", m:"出発 08:55。宿から車 10〜15 分", ll:[16.04258,108.19716], q:"Da Nang International Airport",
      d:"市街地のすぐ西。国内線ターミナル（T1）から 08:55 発ベトジェット。LCC なので 1 時間半前には到着したい。早朝なので送迎車を前夜に確定しておく。", links:[]},
   ],
@@ -535,7 +562,7 @@ const SPOTS = {
      d:"1 区から車で 30 分前後（夜は渋滞が少ない）。国際線ターミナル T2。ベトジェットは LCC で出国審査に時間がかかることがあるので 2 時間半前を目安に。", links:[]},
   ],
 };
-const KIND_LABEL = {stay:"宿", fix:"確定", cand:"候補", opt:"任意", air:"空港", guide:"ガイド掲載", food:"レストラン"};
+const KIND_LABEL = {stay:"宿", fix:"確定", cand:"候補", opt:"任意", air:"空港", guide:"ガイド掲載", food:"レストラン", shop:"お土産"};
 const gmaps = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
 const maps = {};
 
@@ -548,20 +575,21 @@ Object.keys(SPOTS).forEach(city => {
   const map = L.map("map-" + city, {scrollWheelZoom:false, tap:true});
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {maxZoom:19, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
   const group = L.featureGroup().addTo(map);
-  const list = document.querySelector(`.spots:not(.spots-guide):not(.spots-food)[data-city="${city}"]`);
+  const list = document.querySelector(`.spots:not(.spots-guide):not(.spots-food):not(.spots-shop)[data-city="${city}"]`);
   const guideList = document.querySelector(`.spots-guide[data-city="${city}"]`);
   const foodList = document.querySelector(`.spots-food[data-city="${city}"]`);
+  const shopList = document.querySelector(`.spots-shop[data-city="${city}"]`);
   const markers = [];
   const stay = SPOTS[city].find(x => x.kind === "stay");
   const km = (a, b) => { const R=6371, dLat=(b[0]-a[0])*Math.PI/180, dLon=(b[1]-a[1])*Math.PI/180, la1=a[0]*Math.PI/180, la2=b[0]*Math.PI/180; const h=Math.sin(dLat/2)**2+Math.cos(la1)*Math.cos(la2)*Math.sin(dLon/2)**2; return 2*R*Math.asin(Math.sqrt(h)); };
   const fmtKm = d => d < 1 ? `${Math.round(d*100)*10} m` : `${d < 10 ? d.toFixed(1) : Math.round(d)} km`;
   const fromText = s => s.from ? `宿から ${s.from} ・ 直線 ${fmtKm(km(stay.ll, s.ll))}` : "";
-  let n = 0, g = 0, r = 0;
+  let n = 0, g = 0, r = 0, sh = 0;
   SPOTS[city].forEach((s, i) => {
-    const label = s.kind === "stay" ? "★" : s.kind === "guide" ? "G" + (++g) : s.kind === "food" ? "R" + (++r) : String(++n);
+    const label = s.kind === "stay" ? "★" : s.kind === "guide" ? "G" + (++g) : s.kind === "food" ? "R" + (++r) : s.kind === "shop" ? "S" + (++sh) : String(++n);
     const mk = L.marker(s.ll, {icon: pinIcon(s.kind, label), title: s.n}).addTo(group);
     mk.bindPopup(`<span class="pn">${label==="★"?"★ ":label+". "}${s.n}</span><span class="pm">${s.tag?`<b>${s.tag}</b> ・ `:""}${s.m}</span>${s.from?`<span class="pf">${fromText(s)}</span>`:""}<a class="pa" href="${gmaps(s.q)}" target="_blank" rel="noopener">Google マップで開く ↗</a>${s.links&&s.links.length?`<a class="pa pa2" href="${s.links[0].u}" target="_blank" rel="noopener">紹介記事 ↗</a>`:""}`);
-    mk.bindTooltip(label==="★"?"宿":s.n.replace(/（.*?）/g,""), {permanent:s.kind!=="guide"&&s.kind!=="food", direction:"right", offset:[8,-14], className:"lbl"});
+    mk.bindTooltip(label==="★"?"宿":s.n.replace(/（.*?）/g,""), {permanent:!["guide","food","shop"].includes(s.kind), direction:"right", offset:[8,-14], className:"lbl"});
     markers.push(mk);
     // list row
     const li = document.createElement("li");
@@ -586,7 +614,7 @@ Object.keys(SPOTS).forEach(city => {
       if (hasDetail) toggle(); else focus();
     });
     li.addEventListener("keydown", e => { if (e.key === "Enter" && e.target === li) { hasDetail ? toggle() : focus(); } });
-    (s.kind === "guide" && guideList ? guideList : s.kind === "food" && foodList ? foodList : list).appendChild(li);
+    (s.kind === "guide" && guideList ? guideList : s.kind === "food" && foodList ? foodList : s.kind === "shop" && shopList ? shopList : list).appendChild(li);
   });
   const near = L.featureGroup(markers.filter((m, i) => !SPOTS[city][i].far));
   const fitAll = () => map.fitBounds(group.getBounds(), {padding:[36,36], maxZoom:16});
